@@ -36,7 +36,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <footer className="bg-secondary py-6 mt-12">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>
+              © {new Date().getFullYear()} fberrez.co. All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </body>
     </html>
   );
 }

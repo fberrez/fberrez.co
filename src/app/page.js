@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/card';
 import { Calendar, Rocket, Zap, Package, Code, User, Send } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -17,7 +18,12 @@ export default function Home() {
         <header className="py-6 flex justify-between items-center">
           <div className="text-2xl font-bold">fberrez.co</div>
           <nav>
-            <Button variant="link">Talk with me</Button>
+            <Link href="/portfolio">
+              <Button variant="link">My work</Button>
+            </Link>
+            <Link href="https://tally.so/r/3yEEzX" target="_blank">
+              <Button variant="link">Talk with me</Button>
+            </Link>
           </nav>
         </header>
 
@@ -30,18 +36,11 @@ export default function Home() {
               I&apos;ll transform your idea into a market-ready MVP in weeks.
               Fast, affordable, and hassle-free.
             </p>
-            <Button
-              size="lg"
-              onClick={() =>
-                window.open(
-                  'https://tally.so/your-form-url',
-                  '_blank',
-                  'noopener,noreferrer',
-                )
-              }
-            >
-              <Rocket className="mr-2 h-4 w-4" /> Get Started
-            </Button>
+            <Link href="https://tally.so/r/3yEEzX" target="_blank">
+              <Button size="lg">
+                <Rocket className="mr-2 h-4 w-4" /> Get Started
+              </Button>
+            </Link>
           </section>
 
           <section>
@@ -133,7 +132,7 @@ export default function Home() {
                   <CardTitle className="flex items-center">
                     <Rocket className="mr-2 h-6 w-6" /> MVP Package
                   </CardTitle>
-                  <CardDescription>$3,999 (1 spot left)</CardDescription>
+                  <CardDescription>$3,899 (1 spot left)</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="list-disc pl-5">
@@ -149,7 +148,7 @@ export default function Home() {
                   <CardTitle className="flex items-center">
                     <Send className="mr-2 h-6 w-6" /> Landing Page
                   </CardTitle>
-                  <CardDescription>$899 (2 spots left)</CardDescription>
+                  <CardDescription>$699 (2 spots left)</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="list-disc pl-5">
@@ -192,28 +191,17 @@ export default function Home() {
           </section>
 
           <section className="text-center">
-            <h2 className="text-3xl font-bold mb-6">Ready for liftoff?</h2>
-            <Button
-              size="lg"
-              onClick={() =>
-                window.open(
-                  'https://cal.com/your-calendar-url',
-                  '_blank',
-                  'noopener,noreferrer',
-                )
-              }
-            >
-              <Calendar className="mr-2 h-4 w-4" /> Book a Call With Me
-            </Button>
+            <h2 className="text-3xl font-bold mb-6">
+              🚀 Let&apos;s Turn Your Idea into Reality
+            </h2>
+            <Link href="https://cal.com/fberrez/30min" target="_blank">
+              <Button size="lg">
+                <Calendar className="mr-2 h-4 w-4" /> Book a Call With Me
+              </Button>
+            </Link>
           </section>
         </main>
       </div>
-
-      <footer className="bg-secondary py-6 mt-12">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p>© 2024 fberrez.co. All rights reserved.</p>
-        </div>
-      </footer>
     </div>
   );
 }
