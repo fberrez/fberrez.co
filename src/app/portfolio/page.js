@@ -39,12 +39,12 @@ export default function Portfolio() {
             </p>
 
             <Card className="mb-8 overflow-hidden">
-              <div className="relative w-full h-48">
+              <div className="relative w-full h-[430px]">
                 <Image
                   src="/martinup-og.png"
                   alt="martinup.app dashboard"
-                  width="1200"
-                  height="630"
+                  layout="fill"
+                  objectFit="cover"
                 />
               </div>
               <CardHeader>
