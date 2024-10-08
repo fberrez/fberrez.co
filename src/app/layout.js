@@ -22,7 +22,7 @@ export const metadata = {
     siteName: 'fberrez.co',
     images: [
       {
-        url: 'https://fberrez.co/og-image.jpg',
+        url: 'https://www.fberrez.co/og-image.png',
         width: 2400,
         height: 1260,
       },
@@ -35,7 +35,7 @@ export const metadata = {
     title: 'fberrez.co - Your MVP Builder',
     description:
       'Transform your idea into a market-ready MVP in weeks. Fast, affordable, and hassle-free.',
-    images: ['https://fberrez.co/og-image.jpg'],
+    images: ['https://www.fberrez.co/og-image.png'],
   },
 };
 
