@@ -9,6 +9,11 @@ export const metadata = {
   title: 'fberrez.co - Your MVP Builder',
   description:
     'Transform your idea into a market-ready MVP in weeks. Fast, affordable, and hassle-free.',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
   openGraph: {
     title: 'fberrez.co - Your MVP Builder',
     description:
@@ -18,8 +23,8 @@ export const metadata = {
     images: [
       {
         url: 'https://fberrez.co/og-image.jpg',
-        width: 1200,
-        height: 630,
+        width: 2400,
+        height: 1260,
       },
     ],
     locale: 'en_US',
