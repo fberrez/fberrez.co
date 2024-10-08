@@ -7,7 +7,16 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
-import { Calendar, Rocket, Zap, Package, Code, User, Send } from 'lucide-react';
+import {
+  Calendar,
+  Rocket,
+  Zap,
+  Package,
+  Code,
+  User,
+  Send,
+  Globe,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -30,15 +39,15 @@ export default function Home() {
         <main className="py-12 space-y-20">
           <section className="text-center">
             <h1 className="text-4xl font-bold mb-4">
-              I&apos;ll build your MVP in weeks, not months
+              Transform Your Idea into Reality
             </h1>
             <p className="text-xl mb-6">
-              I&apos;ll transform your idea into a market-ready MVP in weeks.
-              Fast, affordable, and hassle-free.
+              I specialize in turning innovative concepts into market-ready
+              MVPs. Efficient, cost-effective, and seamless development process.
             </p>
             <Link href="https://tally.so/r/3yEEzX" target="_blank">
               <Button size="lg">
-                <Rocket className="mr-2 h-4 w-4" /> Get Started
+                <Rocket className="mr-2 h-4 w-4" /> Launch Your Project
               </Button>
             </Link>
           </section>
@@ -71,6 +80,11 @@ export default function Home() {
                   title: 'Experienced developer',
                   description:
                     'I have years of experience building successful startups.',
+                },
+                {
+                  icon: Globe,
+                  title: 'Multilingual communication',
+                  description: 'I speak both English and French fluently.',
                 },
               ].map((feature, index) => (
                 <div
