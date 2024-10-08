@@ -1,6 +1,7 @@
 // app/layout.js
 import { Inter } from 'next/font/google';
 import './globals.css';
+import PlausibleProvider from 'next-plausible';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -36,6 +37,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <PlausibleProvider domain="fberrez.co" />
       <body className={inter.className}>
         {children}
         <footer className="bg-secondary py-6 mt-12">
