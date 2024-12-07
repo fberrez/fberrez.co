@@ -96,6 +96,50 @@ export default function Portfolio() {
                 </Link>
               </CardContent>
             </Card>
+
+            <Card className="mb-8 overflow-hidden">
+              <div className="relative w-full h-[430px]">
+                <Image
+                  src="/nodejobsdev-og.png"
+                  alt="nodejobs.dev homepage"
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
+              <CardHeader>
+                <CardTitle className="text-2xl">nodejobs.dev</CardTitle>
+                <CardDescription>
+                  Specialized Job Board for Node.js Ecosystem Developers
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="mb-4">
+                  nodejobs.dev is a focused job board connecting talented developers with opportunities 
+                  in the Node.js ecosystem, including Node.js, Bun, and Deno. The platform serves both 
+                  frontend and backend developers working with JavaScript/TypeScript technologies.
+                </p>
+                <h3 className="font-semibold mb-2">Key Features:</h3>
+                <ul className="list-disc pl-5 mb-4">
+                  <li>Curated job listings for Node.js ecosystem developers</li>
+                  <li>Support for multiple runtime environments (Node.js, Bun, Deno)</li>
+                  <li>Frontend and backend position categories</li>
+                  <li>Easy job posting and application process</li>
+                  <li>Advanced search and filtering capabilities</li>
+                </ul>
+                <h3 className="font-semibold mb-2">Platform Benefits:</h3>
+                <ul className="list-disc pl-5 mb-4">
+                  <li>Specialized focus on JavaScript/TypeScript technologies</li>
+                  <li>High-quality, relevant job opportunities</li>
+                  <li>Active community of Node.js ecosystem developers</li>
+                  <li>Streamlined hiring process for employers</li>
+                </ul>
+                <Link href="https://nodejobs.dev" target="_blank">
+                  <Button>
+                    Visit nodejobs.dev <ExternalLink className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
           </section>
         </main>
       </div>
