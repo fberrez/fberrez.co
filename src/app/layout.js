@@ -6,25 +6,25 @@ import PlausibleProvider from 'next-plausible';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'fberrez.co - Your MVP Builder',
+  title: 'Flo Berrez - Software Engineer',
   description:
-    'Transform your idea into a market-ready MVP in weeks. Fast, affordable, and hassle-free.',
+    'Software Engineer focused on building reliable and scalable systems. Currently working on distributed systems and web apps.',
   icons: {
     icon: '/favicon.png',
     shortcut: '/favicon.png',
     apple: '/favicon.png',
   },
   openGraph: {
-    title: 'fberrez.co - Your MVP Builder',
+    title: 'Florent Berrez - Software Engineer',
     description:
-      'Transform your idea into a market-ready MVP in weeks. Fast, affordable, and hassle-free.',
+      'Software Engineer focused on building reliable and scalable systems. Currently working on distributed systems and web apps.',
     url: 'https://fberrez.co',
     siteName: 'fberrez.co',
     images: [
       {
         url: 'https://www.fberrez.co/og-image.png',
-        width: 2400,
-        height: 1260,
+        width: 1200,
+        height: 630,
       },
     ],
     locale: 'en_US',
@@ -32,9 +32,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'fberrez.co - Your MVP Builder',
+    title: 'Florent Berrez - Software Engineer',
     description:
-      'Transform your idea into a market-ready MVP in weeks. Fast, affordable, and hassle-free.',
+      'Software Engineer focused on building reliable and scalable systems. Currently working on distributed systems and web apps.',
     images: ['https://www.fberrez.co/og-image.png'],
   },
 };
