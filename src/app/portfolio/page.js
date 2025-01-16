@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Github } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Portfolio() {
@@ -89,9 +89,9 @@ export default function Portfolio() {
                   MartinUp aims to make powerful project monitoring accessible
                   to solopreneurs and small teams.
                 </p>
-                <Link href="https://martinup.app" target="_blank">
-                  <Button>
-                    Visit martinup.app <ExternalLink className="ml-2 h-4 w-4" />
+                <Link href="https://github.com/fberrez/martinup.app" target="_blank">
+                  <Button variant="ghost" size="sm">
+                    <Github className="mr-2 h-4 w-4" /> View on GitHub
                   </Button>
                 </Link>
               </CardContent>
@@ -103,7 +103,7 @@ export default function Portfolio() {
                   src="/nodejobsdev-og.png"
                   alt="nodejobs.dev homepage"
                   layout="fill"
-                  objectFit="contain"
+                  objectFit="cover"
                 />
               </div>
               <CardHeader>
@@ -133,9 +133,9 @@ export default function Portfolio() {
                   <li>Active community of Node.js ecosystem developers</li>
                   <li>Streamlined hiring process for employers</li>
                 </ul>
-                <Link href="https://nodejobs.dev" target="_blank">
-                  <Button>
-                    Visit nodejobs.dev <ExternalLink className="ml-2 h-4 w-4" />
+                <Link href="https://github.com/fberrez/nodejobs.dev" target="_blank">
+                  <Button variant="ghost" size="sm">
+                    <Github className="mr-2 h-4 w-4" /> View on GitHub
                   </Button>
                 </Link>
               </CardContent>
