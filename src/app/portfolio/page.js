@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
-import { ArrowLeft, Github } from 'lucide-react';
+import { ArrowLeft, Github, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Portfolio() {
@@ -37,6 +37,57 @@ export default function Portfolio() {
             <p className="text-xl mb-12">
               Here are some of the projects I&apos;ve worked on.
             </p>
+
+            <Card className="mb-8 overflow-hidden">
+              <div className="relative w-full h-[430px]">
+                <Image
+                  src="/minihabits-og.png"
+                  alt="minihabits.fberrez.co dashboard"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <CardHeader>
+                <CardTitle className="text-2xl">minihabits.fberrez.co</CardTitle>
+                <CardDescription>
+                  A Minimalist Habit Tracking Application
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="mb-4">
+                  minihabits is a clean, intuitive habit tracking application built with NestJS, 
+                  MongoDB, and JWT. It focuses on simplicity and effectiveness to help users build 
+                  and maintain daily habits.
+                </p>
+                <h3 className="font-semibold mb-2">Key Features:</h3>
+                <ul className="list-disc pl-5 mb-4">
+                  <li>Dark/Light mode support for comfortable viewing</li>
+                  <li>Clean, modern UI with smooth animations</li>
+                  <li>5-day habit tracking view for progress monitoring</li>
+                  <li>Streak counting to maintain motivation</li>
+                  <li>Persistent storage using AsyncStorage</li>
+                  <li>Haptic feedback for enhanced interaction</li>
+                  <li>Detailed habit view and analytics</li>
+                </ul>
+                <h3 className="font-semibold mb-2">Technical Highlights:</h3>
+                <ul className="list-disc pl-5 mb-4">
+                  <li>Built with NestJS for robust backend architecture</li>
+                  <li>MongoDB for flexible data storage</li>
+                  <li>JWT implementation for secure authentication</li>
+                  <li>Intuitive modal interface for habit creation</li>
+                </ul>
+                <Link href="https://minihabits.fberrez.co?utm_source=fberrez.co" target="_blank">
+                  <Button variant="ghost" size="sm">
+                    <ExternalLink className="mr-2 h-4 w-4" /> View Live
+                  </Button>
+                </Link>
+                <Link href="https://github.com/fberrez/minihabits" target="_blank">
+                  <Button variant="ghost" size="sm">
+                    <Github className="mr-2 h-4 w-4" /> View on GitHub
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
             <Card className="mb-8 overflow-hidden">
               <div className="relative w-full h-[430px]">
