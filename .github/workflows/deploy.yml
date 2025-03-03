@@ -63,8 +63,11 @@ jobs:
             services:
               portfolio:
                 image: ghcr.io/${{ github.repository }}:latest
-                ports:
-                  - "8000:8000"
+                labels:
+                  - "traefik.enable=true"
+                  - "traefik.http.routers.portfolio.rule=Host(`fberrez.co`)"
+                  - "traefik.http.routers.portfolio.entrypoints=websecure"
+                  - "traefik.http.routers.portfolio.tls.certresolver=myresolver"
                 environment:
                   - NODE_ENV=production
                   - PORT=8000
@@ -76,6 +79,11 @@ jobs:
                   timeout: 10s
                   retries: 3
                   start_period: 10s
+            
+
+            networks:
+              web:
+                external: true
             EOL
             
             # Login to GitHub Container Registry
