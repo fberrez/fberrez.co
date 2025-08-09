@@ -42,13 +42,13 @@ export default function Portfolio() {
               <div className="relative w-full h-[430px]">
                 <Image
                   src="/minihabits-og.png"
-                  alt="minihabits.fberrez.co dashboard"
+                  alt="minihabits.co dashboard"
                   layout="fill"
                   objectFit="cover"
                 />
               </div>
               <CardHeader>
-                <CardTitle className="text-2xl">minihabits.fberrez.co</CardTitle>
+                <CardTitle className="text-2xl">minihabits.co</CardTitle>
                 <CardDescription>
                   A Minimalist Habit Tracking Application
                 </CardDescription>
@@ -76,7 +76,7 @@ export default function Portfolio() {
                   <li>JWT implementation for secure authentication</li>
                   <li>Intuitive modal interface for habit creation</li>
                 </ul>
-                <Link href="https://minihabits.fberrez.co?utm_source=fberrez.co" target="_blank">
+                <Link href="https://www.minihabits.co?utm_source=fberrez.co" target="_blank">
                   <Button variant="ghost" size="sm">
                     <ExternalLink className="mr-2 h-4 w-4" /> View Live
                   </Button>
