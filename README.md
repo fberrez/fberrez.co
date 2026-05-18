@@ -8,9 +8,8 @@ This is my personal website [fberrez.co](https://fberrez.co).
 - React (workspace island)
 - Newsreader + JetBrains Mono via `@fontsource`
 - `satori` + `@resvg/resvg-js` for OG image generation at build time
-- nginx (production)
-- Docker
-- GitHub Actions (CI/CD)
+- nginx (container)
+- Railway (hosting + auto-deploy on `main`)
 
 ## Getting started
 
@@ -45,14 +44,12 @@ $ docker compose up -d
 $ docker compose logs -f
 ```
 
-## CI/CD Pipeline
+## Deployment
 
-GitHub Actions builds a Docker image, pushes it to GHCR, and deploys to a VPS via Docker Compose. Triggered manually from the Actions tab (`workflow_dispatch`).
+Railway watches the `main` branch and rebuilds the Docker image on every push, then deploys it. There is also a `.github/workflows/deploy.yml` workflow (disabled, `workflow_dispatch` only) that was used for the previous OVH VPS setup — kept for reference.
 
 ## Infrastructure
 
-- **Hosting**: VPS - OVH (and Railway preview)
-- **Containerization**: Docker (nginx:alpine serves `dist/`)
-- **Reverse Proxy**: Traefik
-- **SSL**: Let's Encrypt via Traefik
+- **Hosting**: [Railway](https://railway.app) — service `fberrez-co` in project `fberrez.co`
+- **Containerization**: Docker (`nginx:alpine` serves `dist/`)
 - **Analytics**: self-hosted Umami at `umami.fberrez.co`
