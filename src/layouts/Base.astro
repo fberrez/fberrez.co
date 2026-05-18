@@ -2,6 +2,7 @@
 import '../styles/global.css';
 
 const SITE_URL = 'https://www.fberrez.co';
+const UMAMI_WEBSITE_ID = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
 const TITLE = 'Florent Berrez — ships small things';
 const DESCRIPTION =
   'Florent Berrez is a software engineer in Paris building small, focused products — mambo (keyboard-driven database client), blurt.sh, quietdash, minihabits, and 4-days-workweek. Desktop tools, developer ergonomics, quiet web things.';
@@ -80,6 +81,14 @@ const websiteJsonLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
+
+    {UMAMI_WEBSITE_ID && (
+      <script
+        defer
+        src="https://umami.fberrez.co/script.js"
+        data-website-id={UMAMI_WEBSITE_ID}
+      />
+    )}
   </head>
   <body>
     <slot />

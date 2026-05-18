@@ -4,11 +4,11 @@ This is my personal website [fberrez.co](https://fberrez.co).
 
 ## Tech stack
 
-- Next.js
-- Tailwind CSS
-- Radix UI
-- Lucide Icons
-- Plausible Analytics
+- Astro (static site)
+- React (workspace island)
+- Newsreader + JetBrains Mono via `@fontsource`
+- `satori` + `@resvg/resvg-js` for OG image generation at build time
+- nginx (production)
 - Docker
 - GitHub Actions (CI/CD)
 
@@ -20,35 +20,39 @@ This is my personal website [fberrez.co](https://fberrez.co).
 # Install dependencies
 $ pnpm install
 
-# Start development server
+# Start dev server
 $ pnpm dev
+
+# Build the OG image + static site to dist/
+$ pnpm build
+
+# Preview the built site
+$ pnpm preview
 ```
+
+### Environment
+
+| Variable                    | Purpose                                                   |
+| --------------------------- | --------------------------------------------------------- |
+| `PUBLIC_UMAMI_WEBSITE_ID`   | Umami website ID. If unset, the analytics script is omitted. |
 
 ### Docker deployment
 
-The project is containerized with Docker and can be deployed using Docker Compose:
+The project is containerized with Docker and served via nginx:
 
 ```bash
-# Build and start the container
 $ docker compose up -d
-
-# View logs
 $ docker compose logs -f
 ```
 
 ## CI/CD Pipeline
 
-This project uses GitHub Actions for continuous integration and deployment:
-
-1. When code is pushed to the `main` branch, a GitHub Action workflow is triggered
-2. The workflow builds a Docker image and pushes it to GitHub Container Registry
-3. The image is then deployed to a VPS using Docker Compose
-4. Traefik handles routing and SSL termination
+GitHub Actions builds a Docker image, pushes it to GHCR, and deploys to a VPS via Docker Compose. Triggered manually from the Actions tab (`workflow_dispatch`).
 
 ## Infrastructure
 
-- **Hosting**: VPS - OVH
-- **Containerization**: Docker
+- **Hosting**: VPS - OVH (and Railway preview)
+- **Containerization**: Docker (nginx:alpine serves `dist/`)
 - **Reverse Proxy**: Traefik
 - **SSL**: Let's Encrypt via Traefik
-- **Analytics**: Plausible Analytics
+- **Analytics**: self-hosted Umami at `umami.fberrez.co`
