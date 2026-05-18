@@ -8,8 +8,8 @@ export const PROJECTS = [
     tag: 'Keyboard-driven desktop database client.',
     desc: 'Connect, query, browse — without leaving the home row. macOS & Linux.',
     chips: ['postgres', 'mysql', 'mariadb', 'mongodb', 'redis', 'sqlite', 'clickhouse', 'duckdb', 'elasticsearch', 'cassandra'],
-    repo: 'github.com/mambo-corp/mambo',
-    href: 'https://github.com/mambo-corp/mambo',
+    repo: 'trymambo.app',
+    href: 'https://trymambo.app',
     kind: 'desktop tool',
   },
   {
@@ -35,7 +35,7 @@ export const PROJECTS = [
     desc: '60+ global trials, peer-reviewed data, primary sources.',
     chips: ['research', 'open-data', '61 trials'],
     repo: '4-days-workweek',
-    href: 'https://4days-workweek.com',
+    href: 'https://4-days-workweek-production.up.railway.app',
     kind: 'research',
   },
   {
@@ -60,8 +60,8 @@ export const PROJECTS = [
     tag: 'A minimalist habit tracking app.',
     desc: 'One screen. Tap. Done. Streak. No onboarding, no settings, no notifications.',
     chips: ['habits', 'mobile-first', 'no-onboarding'],
-    repo: 'minihabits.app',
-    href: 'https://minihabits.app',
+    repo: 'minihabits.co',
+    href: 'https://minihabits.co',
     kind: 'mobile app',
   },
 ];

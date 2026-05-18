@@ -15,15 +15,15 @@
 
 ## Currently shipping
 
-- [mambo](https://github.com/mambo-corp/mambo): Keyboard-driven desktop database client for macOS and Linux. Connects to PostgreSQL, MySQL/MariaDB, MongoDB, Redis, SQLite, ClickHouse, DuckDB, Elasticsearch, and Cassandra. Flagship project. Built with Tauri 2 + React + TypeScript.
+- [mambo](https://trymambo.app): Keyboard-driven desktop database client for macOS and Linux. Connects to PostgreSQL, MySQL/MariaDB, MongoDB, Redis, SQLite, ClickHouse, DuckDB, Elasticsearch, and Cassandra. Flagship project. Built with Tauri 2 + React + TypeScript.
 - [blurt.sh](https://blurt.sh): The simplest way to publish on the web. Push markdown, send an email, or just write. Your blog is live. Zero-config.
-- [4-days-workweek](https://4days-workweek.com): Evidence-based research on the 4-day workweek. 60+ global trials, peer-reviewed data, primary sources.
+- [4-days-workweek](https://4-days-workweek-production.up.railway.app): Evidence-based research on the 4-day workweek. 60+ global trials, peer-reviewed data, primary sources.
 - [quietdash.com](https://quietdash.com): A quiet dashboard. Numbers that matter, nothing that doesn't. Single-screen metrics view.
-- [minihabits](https://minihabits.app): A minimalist habit tracking app. One screen, tap, done, streak. No onboarding, no settings, no notifications.
+- [minihabits](https://minihabits.co): A minimalist habit tracking app. One screen, tap, done, streak. No onboarding, no settings, no notifications.
 
 ## Stack
 
-TypeScript, React, Next.js, NestJS, Tauri, Node.js, Rust, Go, MongoDB, PostgreSQL, Docker.
+TypeScript, React, Astro, NestJS, Tauri, Node.js, Rust, Go, MongoDB, PostgreSQL, Docker.
 
 ## Usage
 
