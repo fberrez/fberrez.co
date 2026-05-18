@@ -29,45 +29,33 @@ const markup = html`
     color: #1d150f;
     font-family: mono;
   ">
-    <div style="
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #7a5d4a;
-      font-size: 22px;
-      letter-spacing: 0.04em;
-    ">
-      <span>~/fberrez</span>
-      <span>fberrez.co</span>
-    </div>
-
-    <div style="display: flex; flex-direction: column; gap: 24px; margin-top: -40px;">
+    <div style="display: flex; flex-direction: column; gap: 28px;">
       <div style="
         display: flex;
         align-items: flex-end;
         font-family: serif;
         font-style: italic;
-        font-size: 176px;
+        font-size: 200px;
         line-height: 1;
         letter-spacing: -0.02em;
         color: #1d150f;
       ">
-        <span style="display: flex;">Florent Berrez</span>
+        <span style="display: flex;">fberrez.co</span>
         <span style="
           display: flex;
-          width: 24px;
-          height: 24px;
+          width: 28px;
+          height: 28px;
           background: #b54a2e;
           border-radius: 999px;
-          margin-left: 18px;
-          margin-bottom: 24px;
+          margin-left: 20px;
+          margin-bottom: 28px;
         "></span>
       </div>
       <div style="
         display: flex;
         font-family: serif;
         font-style: italic;
-        font-size: 52px;
+        font-size: 56px;
         line-height: 1.2;
         color: #5a4434;
       ">
@@ -77,22 +65,12 @@ const markup = html`
 
     <div style="
       display: flex;
-      justify-content: space-between;
       align-items: center;
       font-size: 24px;
       color: #7a5d4a;
       letter-spacing: 0.04em;
     ">
       <span style="display: flex;">Paris, France · software engineer</span>
-      <span style="
-        display: flex;
-        background: #1d150f;
-        color: #ede5d6;
-        padding: 8px 16px;
-        border-radius: 4px;
-        font-size: 18px;
-        letter-spacing: 0.16em;
-      ">FB</span>
     </div>
   </div>
 `;
