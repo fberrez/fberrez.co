@@ -1,4 +1,3 @@
-'use client';
 import { useEffect, useState } from 'react';
 
 export function MamboPreview() {
@@ -15,7 +14,6 @@ export function MamboPreview() {
     { id: '0004', email: 'ines@lavoix.co', created: '2026-05-14', active: true },
     { id: '0005', email: 'theo@studio.fm', created: '2026-05-15', active: true },
   ];
-
   const queries = [
     'SELECT * FROM users WHERE active LIMIT 5;',
     'SELECT count(*) FROM orders;',

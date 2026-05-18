@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import Workspace from '../components/Workspace.jsx';
+---
+
+<Base>
+  <main class="page">
+    <Workspace client:load />
+
+    <footer class="foot">
+      <div class="links">
+        <a href="mailto:hi@fberrez.co">hi@fberrez.co</a>
+        <a href="https://github.com/fberrez" target="_blank" rel="noopener noreferrer">github</a>
+      </div>
+      <div class="sig">fberrez, {new Date().getFullYear()}</div>
+    </footer>
+  </main>
+</Base>

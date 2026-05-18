@@ -1,21 +1,27 @@
 {
   "name": "fberrez.co",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "astro dev",
+    "build": "node scripts/og.mjs && astro build",
+    "build:og": "node scripts/og.mjs",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "next": "14.2.14",
-    "react": "^18",
-    "react-dom": "^18",
+    "@astrojs/react": "^4.4.0",
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource/jetbrains-mono": "^5.2.5",
+    "@fontsource/newsreader": "^5.2.5",
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/react": "^19.2.3",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.18.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "satori": "^0.18.4",
     "satori-html": "^0.3.2"
-  },
-  "devDependencies": {
-    "eslint": "^8",
-    "eslint-config-next": "14.2.14"
   }
 }

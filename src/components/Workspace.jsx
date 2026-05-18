@@ -1,75 +1,6 @@
-'use client';
-
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { PROJECT_PREVIEWS } from './previews';
-
-const PROJECTS = [
-  {
-    id: 'mambo',
-    name: 'mambo',
-    tail: 'v0.7',
-    status: 'active',
-    statusLabel: 'flagship · v0.7',
-    tag: 'Keyboard-driven desktop database client.',
-    desc: 'Connect, query, browse — without leaving the home row. macOS & Linux.',
-    chips: ['postgres', 'mysql', 'mariadb', 'mongodb', 'redis', 'sqlite', 'clickhouse', 'duckdb', 'elasticsearch', 'cassandra'],
-    repo: 'github.com/mambo-corp/mambo',
-    href: 'https://github.com/mambo-corp/mambo',
-    kind: 'desktop tool',
-  },
-  {
-    id: 'blurt',
-    name: 'blurt.sh',
-    tail: 'live',
-    status: 'active',
-    statusLabel: 'live',
-    tag: 'The simplest way to publish on the web.',
-    desc: 'Push markdown, send an email, or just write. Your blog is live.',
-    chips: ['markdown', 'email-to-publish', 'rss', 'zero-config'],
-    repo: 'blurt.sh',
-    href: 'https://blurt.sh',
-    kind: 'writing tool',
-  },
-  {
-    id: 'fourdays',
-    name: '4-days-workweek',
-    tail: 'open',
-    status: 'active',
-    statusLabel: 'open archive',
-    tag: 'Evidence-based research on the 4-day workweek.',
-    desc: '60+ global trials, peer-reviewed data, primary sources.',
-    chips: ['research', 'open-data', '61 trials'],
-    repo: '4-days-workweek',
-    href: 'https://4days-workweek.com',
-    kind: 'research',
-  },
-  {
-    id: 'quietdash',
-    name: 'quietdash.com',
-    tail: 'β',
-    status: 'beta',
-    statusLabel: 'beta',
-    tag: 'A quiet dashboard.',
-    desc: "Numbers that matter, nothing that doesn't. The metrics screen you'd actually look at.",
-    chips: ['dashboard', 'low-signal-loss', 'single-screen'],
-    repo: 'quietdash.com',
-    href: 'https://quietdash.com',
-    kind: 'saas',
-  },
-  {
-    id: 'minihabits',
-    name: 'minihabits',
-    tail: 'live',
-    status: 'active',
-    statusLabel: 'live',
-    tag: 'A minimalist habit tracking app.',
-    desc: 'One screen. Tap. Done. Streak. No onboarding, no settings, no notifications.',
-    chips: ['habits', 'mobile-first', 'no-onboarding'],
-    repo: 'minihabits.app',
-    href: 'https://minihabits.app',
-    kind: 'mobile app',
-  },
-];
+import { PROJECTS } from './projects.js';
+import { PROJECT_PREVIEWS } from './previews.jsx';
 
 function useParisClock() {
   const [now, setNow] = useState(null);
@@ -91,7 +22,7 @@ function useParisClock() {
   };
 }
 
-export default function Home() {
+export default function Workspace() {
   const [focusIdx, setFocusIdx] = useState(0);
   const [filter, setFilter] = useState('');
   const filterRef = useRef(null);
@@ -158,7 +89,7 @@ export default function Home() {
   const Preview = PROJECT_PREVIEWS[current.id] || (() => null);
 
   return (
-    <main className="page">
+    <>
       <header className="topbar">
         <div>
           <div className="name">Florent Berrez</div>
@@ -183,7 +114,7 @@ export default function Home() {
               <>&nbsp;</>
             )}
           </div>
-          <div className="lbl">{clock ? `${clock.date} · ${clock.tz}` : ' '}</div>
+          <div className="lbl">{clock ? `${clock.date} · ${clock.tz}` : ' '}</div>
         </div>
       </header>
 
@@ -201,9 +132,7 @@ export default function Home() {
             <span className="corner">┌─</span>
             <span className="nm">shipped/</span>
             <span className="rest"></span>
-            <span className="meta">
-              {filtered.length} of {PROJECTS.length}
-            </span>
+            <span className="meta">{filtered.length} of {PROJECTS.length}</span>
           </div>
 
           <ul className="side-list" role="listbox" aria-activedescendant={`p-${current.id}`}>
@@ -232,18 +161,10 @@ export default function Home() {
 
           <div className="side-section">stats</div>
           <div className="stat-grid">
-            <div>
-              active <b>{PROJECTS.filter((p) => p.status === 'active').length}</b>
-            </div>
-            <div>
-              beta <b>{PROJECTS.filter((p) => p.status === 'beta').length}</b>
-            </div>
-            <div>
-              shipped <b>{PROJECTS.length}</b>
-            </div>
-            <div>
-              since <b>2019</b>
-            </div>
+            <div>active <b>{PROJECTS.filter((p) => p.status === 'active').length}</b></div>
+            <div>beta <b>{PROJECTS.filter((p) => p.status === 'beta').length}</b></div>
+            <div>shipped <b>{PROJECTS.length}</b></div>
+            <div>since <b>2019</b></div>
           </div>
 
           <div className="filter">
@@ -256,9 +177,7 @@ export default function Home() {
               spellCheck={false}
               autoComplete="off"
             />
-            <span className="hint">
-              <kbd>/</kbd>
-            </span>
+            <span className="hint"><kbd>/</kbd></span>
           </div>
         </aside>
 
@@ -267,9 +186,7 @@ export default function Home() {
             <span className="corner">┌─</span>
             <span className="nm">./{current.id}</span>
             <span className="rest"></span>
-            <span className="meta">
-              {current.kind} · {current.statusLabel}
-            </span>
+            <span className="meta">{current.kind} · {current.statusLabel}</span>
           </div>
 
           <div className="main-body">
@@ -277,10 +194,7 @@ export default function Home() {
               <div style={{ minWidth: 0 }}>
                 <h2 className="main-title">{current.name}</h2>
                 <div className="main-repo">
-                  ↗{' '}
-                  <a href={current.href} target="_blank" rel="noopener noreferrer">
-                    {current.repo}
-                  </a>
+                  ↗ <a href={current.href} target="_blank" rel="noopener noreferrer">{current.repo}</a>
                 </div>
               </div>
               <div className="main-side">
@@ -288,9 +202,7 @@ export default function Home() {
                   <b>{String(focusIdx + 1).padStart(2, '0')}</b>{' '}
                   <span style={{ color: 'var(--ink-4)' }}>/ {String(filtered.length).padStart(2, '0')}</span>
                 </div>
-                <a className="open-btn" href={current.href} target="_blank" rel="noopener noreferrer">
-                  open ↗
-                </a>
+                <a className="open-btn" href={current.href} target="_blank" rel="noopener noreferrer">open ↗</a>
               </div>
             </div>
             <div className="main-tag">
@@ -304,9 +216,7 @@ export default function Home() {
 
             <div className="stack">
               {current.chips.slice(0, 7).map((c, i) => (
-                <span key={i} className={'chip' + (i === 0 ? ' solid' : '')}>
-                  {c}
-                </span>
+                <span key={i} className={'chip' + (i === 0 ? ' solid' : '')}>{c}</span>
               ))}
               {current.chips.length > 7 && <span className="more">+{current.chips.length - 7} more</span>}
             </div>
@@ -321,31 +231,12 @@ export default function Home() {
           <span className="cmd">open</span>
         </span>
         <span className="keys">
-          <span>
-            <kbd>j</kbd>
-            <kbd>k</kbd> nav
-          </span>
-          <span>
-            <kbd>/</kbd> filter
-          </span>
-          <span>
-            <kbd>↵</kbd> open
-          </span>
-          <span>
-            <kbd>g</kbd>/<kbd>G</kbd> top/end
-          </span>
+          <span><kbd>j</kbd><kbd>k</kbd> nav</span>
+          <span><kbd>/</kbd> filter</span>
+          <span><kbd>↵</kbd> open</span>
+          <span><kbd>g</kbd>/<kbd>G</kbd> top/end</span>
         </span>
       </div>
-
-      <footer className="foot">
-        <div className="links">
-          <a href="mailto:hi@fberrez.co">hi@fberrez.co</a>
-          <a href="https://github.com/fberrez" target="_blank" rel="noopener noreferrer">
-            github
-          </a>
-        </div>
-        <div className="sig">fberrez, {new Date().getFullYear()}</div>
-      </footer>
-    </main>
+    </>
   );
 }
