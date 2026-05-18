@@ -1,74 +1,351 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { Github, Mail, Briefcase } from 'lucide-react';
-import Link from 'next/link';
+
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { PROJECT_PREVIEWS } from './previews';
+
+const PROJECTS = [
+  {
+    id: 'mambo',
+    name: 'mambo',
+    tail: 'v0.7',
+    status: 'active',
+    statusLabel: 'flagship · v0.7',
+    tag: 'Keyboard-driven desktop database client.',
+    desc: 'Connect, query, browse — without leaving the home row. macOS & Linux.',
+    chips: ['postgres', 'mysql', 'mariadb', 'mongodb', 'redis', 'sqlite', 'clickhouse', 'duckdb', 'elasticsearch', 'cassandra'],
+    repo: 'github.com/mambo-corp/mambo',
+    href: 'https://github.com/mambo-corp/mambo',
+    kind: 'desktop tool',
+  },
+  {
+    id: 'blurt',
+    name: 'blurt.sh',
+    tail: 'live',
+    status: 'active',
+    statusLabel: 'live',
+    tag: 'The simplest way to publish on the web.',
+    desc: 'Push markdown, send an email, or just write. Your blog is live.',
+    chips: ['markdown', 'email-to-publish', 'rss', 'zero-config'],
+    repo: 'blurt.sh',
+    href: 'https://blurt.sh',
+    kind: 'writing tool',
+  },
+  {
+    id: 'fourdays',
+    name: '4-days-workweek',
+    tail: 'open',
+    status: 'active',
+    statusLabel: 'open archive',
+    tag: 'Evidence-based research on the 4-day workweek.',
+    desc: '60+ global trials, peer-reviewed data, primary sources.',
+    chips: ['research', 'open-data', '61 trials'],
+    repo: '4-days-workweek',
+    href: 'https://4days-workweek.com',
+    kind: 'research',
+  },
+  {
+    id: 'quietdash',
+    name: 'quietdash.com',
+    tail: 'β',
+    status: 'beta',
+    statusLabel: 'beta',
+    tag: 'A quiet dashboard.',
+    desc: "Numbers that matter, nothing that doesn't. The metrics screen you'd actually look at.",
+    chips: ['dashboard', 'low-signal-loss', 'single-screen'],
+    repo: 'quietdash.com',
+    href: 'https://quietdash.com',
+    kind: 'saas',
+  },
+  {
+    id: 'minihabits',
+    name: 'minihabits',
+    tail: 'live',
+    status: 'active',
+    statusLabel: 'live',
+    tag: 'A minimalist habit tracking app.',
+    desc: 'One screen. Tap. Done. Streak. No onboarding, no settings, no notifications.',
+    chips: ['habits', 'mobile-first', 'no-onboarding'],
+    repo: 'minihabits.app',
+    href: 'https://minihabits.app',
+    kind: 'mobile app',
+  },
+];
+
+function useParisClock() {
+  const [now, setNow] = useState(null);
+  useEffect(() => {
+    setNow(new Date());
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  if (!now) return null;
+  const fmt = (opts) =>
+    new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Paris', hourCycle: 'h23', ...opts }).format(now);
+  const pad = (n) => String(n).padStart(2, '0');
+  return {
+    hh: pad(parseInt(fmt({ hour: '2-digit' }), 10) || 0),
+    mm: pad(parseInt(fmt({ minute: '2-digit' }), 10) || 0),
+    ss: pad(parseInt(fmt({ second: '2-digit' }), 10) || 0),
+    date: fmt({ weekday: 'short', day: '2-digit', month: 'short' }),
+    tz: 'CET',
+  };
+}
 
 export default function Home() {
+  const [focusIdx, setFocusIdx] = useState(0);
+  const [filter, setFilter] = useState('');
+  const filterRef = useRef(null);
+  const clock = useParisClock();
+
+  const filtered = useMemo(() => {
+    const q = filter.trim().toLowerCase();
+    if (!q) return PROJECTS;
+    return PROJECTS.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.tag.toLowerCase().includes(q) ||
+        p.chips.some((c) => c.toLowerCase().includes(q)) ||
+        p.kind.toLowerCase().includes(q)
+    );
+  }, [filter]);
+
+  useEffect(() => {
+    if (focusIdx >= filtered.length) setFocusIdx(Math.max(0, filtered.length - 1));
+  }, [filtered.length, focusIdx]);
+
+  const current = filtered[focusIdx] || PROJECTS[0];
+
+  useEffect(() => {
+    const onKey = (e) => {
+      const tag = e.target && e.target.tagName;
+      const inField = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable);
+
+      if (inField) {
+        if (e.key === 'Escape') e.target.blur();
+        else if (e.key === 'Enter') {
+          const p = filtered[focusIdx];
+          if (p && p.href) window.open(p.href, '_blank', 'noopener');
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setFocusIdx((i) => Math.min(filtered.length - 1, i + 1));
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          setFocusIdx((i) => Math.max(0, i - 1));
+        }
+        return;
+      }
+
+      if (e.key === 'j' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        setFocusIdx((i) => Math.min(filtered.length - 1, i + 1));
+      } else if (e.key === 'k' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        setFocusIdx((i) => Math.max(0, i - 1));
+      } else if (e.key === 'g') setFocusIdx(0);
+      else if (e.key === 'G') setFocusIdx(Math.max(0, filtered.length - 1));
+      else if (e.key === 'Enter' || e.key === 'o') {
+        const p = filtered[focusIdx];
+        if (p && p.href) window.open(p.href, '_blank', 'noopener');
+      } else if (e.key === '/') {
+        e.preventDefault();
+        filterRef.current && filterRef.current.focus();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [filtered, focusIdx]);
+
+  const Preview = PROJECT_PREVIEWS[current.id] || (() => null);
+
   return (
-    <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
-      <div className="max-w-2xl mx-auto px-4">
-        <main className="space-y-8">
-          <section className="space-y-4">
-            <h1 className="text-4xl font-bold">Flo Berrez</h1>
-            <p className="text-xl text-muted-foreground">
-              Software Engineer focused on building reliable and scalable systems.
-            </p>
-          </section>
+    <main className="page">
+      <header className="topbar">
+        <div>
+          <div className="name">Florent Berrez</div>
+          <div className="subline">
+            <span>~/fberrez</span>
+            <span className="sep">·</span>
+            <span>software engineer</span>
+            <span className="sep">·</span>
+            <span>Paris, France</span>
+            <span className="sep">·</span>
+            <span className="availability">shipping</span>
+          </div>
+        </div>
+        <div className="clock" aria-live="polite">
+          <div className="t">
+            {clock ? (
+              <>
+                {clock.hh}:{clock.mm}
+                <span className="sec">:{clock.ss}</span>
+              </>
+            ) : (
+              <>&nbsp;</>
+            )}
+          </div>
+          <div className="lbl">{clock ? `${clock.date} · ${clock.tz}` : ' '}</div>
+        </div>
+      </header>
 
-          <section className="space-y-2 text-muted-foreground">
-            <p>
-              Currently working on distributed systems and web apps.
-            </p>
-            <p>
-              Based in France 🇫🇷
-            </p>
-          </section>
+      <p className="intro">
+        I build small,&nbsp;<em>focused</em> products — a lot of small things rather than one big thing.
+      </p>
+      <p className="intro-sub">
+        Desktop tools, developer ergonomics, quiet web things. Keyboard-first when it matters, boring tech, considered
+        defaults. Below is everything I&apos;m currently shipping — pick one.
+      </p>
 
-          <section className="space-y-2">
-            <h2 className="text-sm font-medium text-muted-foreground">STACK</h2>
-            <div className="flex flex-wrap gap-2">
-              {[
-                'TypeScript',
-                'React',
-                'Next.js',
-                'Tailwind CSS',
-                'NestJS',
-                'Docker',
-                'MongoDB',
-                'PostgreSQL',
-              ].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-md"
-                >
-                  {tech}
+      <section className="workspace" aria-label="Projects">
+        <aside className="side">
+          <div className="pane-hd">
+            <span className="corner">┌─</span>
+            <span className="nm">shipped/</span>
+            <span className="rest"></span>
+            <span className="meta">
+              {filtered.length} of {PROJECTS.length}
+            </span>
+          </div>
+
+          <ul className="side-list" role="listbox" aria-activedescendant={`p-${current.id}`}>
+            {filtered.map((p, i) => (
+              <li
+                key={p.id}
+                id={`p-${p.id}`}
+                className={'row' + (i === focusIdx ? ' focused' : '')}
+                onClick={() => setFocusIdx(i)}
+                onDoubleClick={() => p.href && window.open(p.href, '_blank', 'noopener')}
+                role="option"
+                aria-selected={i === focusIdx}
+              >
+                <span className="idx">{String(i + 1).padStart(2, '0')}</span>
+                <span className={'st' + (p.status === 'beta' ? ' beta' : p.status === 'idea' ? ' idea' : '')}></span>
+                <span className="nm">{p.name}</span>
+                <span className="tail">{p.tail}</span>
+              </li>
+            ))}
+            {filtered.length === 0 && (
+              <li style={{ padding: '16px 14px', color: 'var(--ink-3)', fontSize: 12 }}>
+                <span style={{ color: 'var(--accent)' }}>!</span> no matches for &quot;{filter}&quot;
+              </li>
+            )}
+          </ul>
+
+          <div className="side-section">stats</div>
+          <div className="stat-grid">
+            <div>
+              active <b>{PROJECTS.filter((p) => p.status === 'active').length}</b>
+            </div>
+            <div>
+              beta <b>{PROJECTS.filter((p) => p.status === 'beta').length}</b>
+            </div>
+            <div>
+              shipped <b>{PROJECTS.length}</b>
+            </div>
+            <div>
+              since <b>2019</b>
+            </div>
+          </div>
+
+          <div className="filter">
+            <span className="caret">/</span>
+            <input
+              ref={filterRef}
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              placeholder="filter projects…"
+              spellCheck={false}
+              autoComplete="off"
+            />
+            <span className="hint">
+              <kbd>/</kbd>
+            </span>
+          </div>
+        </aside>
+
+        <section className="main" key={current.id}>
+          <div className="pane-hd">
+            <span className="corner">┌─</span>
+            <span className="nm">./{current.id}</span>
+            <span className="rest"></span>
+            <span className="meta">
+              {current.kind} · {current.statusLabel}
+            </span>
+          </div>
+
+          <div className="main-body">
+            <div className="main-head">
+              <div style={{ minWidth: 0 }}>
+                <h2 className="main-title">{current.name}</h2>
+                <div className="main-repo">
+                  ↗{' '}
+                  <a href={current.href} target="_blank" rel="noopener noreferrer">
+                    {current.repo}
+                  </a>
+                </div>
+              </div>
+              <div className="main-side">
+                <div>
+                  <b>{String(focusIdx + 1).padStart(2, '0')}</b>{' '}
+                  <span style={{ color: 'var(--ink-4)' }}>/ {String(filtered.length).padStart(2, '0')}</span>
+                </div>
+                <a className="open-btn" href={current.href} target="_blank" rel="noopener noreferrer">
+                  open ↗
+                </a>
+              </div>
+            </div>
+            <div className="main-tag">
+              <span style={{ color: 'var(--ink)' }}>{current.tag}</span>{' '}
+              <span className="muted">{current.desc}</span>
+            </div>
+
+            <div className="preview" key={current.id}>
+              <Preview />
+            </div>
+
+            <div className="stack">
+              {current.chips.slice(0, 7).map((c, i) => (
+                <span key={i} className={'chip' + (i === 0 ? ' solid' : '')}>
+                  {c}
                 </span>
               ))}
+              {current.chips.length > 7 && <span className="more">+{current.chips.length - 7} more</span>}
             </div>
-          </section>
+          </div>
+        </section>
+      </section>
 
-          <section className="flex space-x-4">
-            <Link href="https://github.com/fberrez" target="_blank">
-              <Button variant="ghost" size="sm">
-                <Github className="h-4 w-4 mr-2" />
-                GitHub
-              </Button>
-            </Link>
-            <Link href="/portfolio">
-              <Button variant="ghost" size="sm">
-                <Briefcase className="h-4 w-4 mr-2" />
-                Portfolio
-              </Button>
-            </Link>
-            <Link href="https://tally.so/r/3yEEzX" target="_blank">
-              <Button variant="ghost" size="sm">
-                <Mail className="h-4 w-4 mr-2" />
-                Contact
-              </Button>
-            </Link>
-          </section>
-        </main>
+      <div className="statusbar">
+        <span className="pill">FB</span>
+        <span className="prompt">
+          <span className="at">fberrez@desk:</span>~/<span style={{ color: 'var(--accent)' }}>{current.id}</span>${' '}
+          <span className="cmd">open</span>
+        </span>
+        <span className="keys">
+          <span>
+            <kbd>j</kbd>
+            <kbd>k</kbd> nav
+          </span>
+          <span>
+            <kbd>/</kbd> filter
+          </span>
+          <span>
+            <kbd>↵</kbd> open
+          </span>
+          <span>
+            <kbd>g</kbd>/<kbd>G</kbd> top/end
+          </span>
+        </span>
       </div>
-    </div>
+
+      <footer className="foot">
+        <div className="links">
+          <a href="mailto:hi@fberrez.co">hi@fberrez.co</a>
+          <a href="https://github.com/fberrez" target="_blank" rel="noopener noreferrer">
+            github
+          </a>
+        </div>
+        <div className="sig">fberrez, {new Date().getFullYear()}</div>
+      </footer>
+    </main>
   );
 }

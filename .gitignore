@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# playwright local artifacts
+.playwright-mcp/
+mobile-iphone.png
