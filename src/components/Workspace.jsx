@@ -150,6 +150,14 @@ export default function Workspace() {
                 <span className={'st' + (p.status === 'beta' ? ' beta' : p.status === 'idea' ? ' idea' : '')}></span>
                 <span className="nm">{p.name}</span>
                 <span className="tail">{p.tail}</span>
+                <a
+                  className="open"
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${p.name}`}
+                  onClick={(e) => e.stopPropagation()}
+                >↗</a>
               </li>
             ))}
             {filtered.length === 0 && (
