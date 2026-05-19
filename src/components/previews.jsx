@@ -120,71 +120,6 @@ export function BlurtPreview() {
   );
 }
 
-function Stat({ label, value, delta, bad, accent }) {
-  return (
-    <div style={{ borderBottom: '1px dashed var(--rule)', paddingBottom: 6, minWidth: 0 }}>
-      <div style={{ fontSize: 9, color: 'var(--ink-3)', letterSpacing: '0.06em', textTransform: 'uppercase', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{label}</div>
-      <div style={{ fontSize: 17, fontFamily: 'var(--serif)', color: accent ? 'var(--accent)' : 'var(--ink)', lineHeight: 1.1, marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{value}</div>
-      <div style={{ fontSize: 10, color: bad ? 'var(--ok)' : 'var(--ink-3)', fontVariantNumeric: 'tabular-nums', marginTop: 1 }}>{delta}</div>
-    </div>
-  );
-}
-
-export function FourDaysPreview() {
-  const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-  const weeks = Array.from({ length: 6 }, () => days.map((_, i) => (i < 4 ? 'on' : 'off')));
-
-  return (
-    <>
-      <div className="preview-hd">
-        <div className="dots"><i /><i /><i /></div>
-        <span className="ttl">4-days-workweek<span className="sep">/</span>findings</span>
-        <span className="right">61 trials · peer-reviewed</span>
-      </div>
-      <div className="preview-body" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0,1fr))', gap: 4, marginBottom: 6 }}>
-            {days.map((d) => (
-              <div key={d} style={{ fontSize: 9.5, color: 'var(--ink-3)', letterSpacing: '0.06em', textAlign: 'center', overflow: 'hidden' }}>{d}</div>
-            ))}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {weeks.map((w, wi) => (
-              <div key={wi} style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0,1fr))', gap: 4 }}>
-                {w.map((c, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      height: 14,
-                      borderRadius: 2,
-                      background: c === 'on' ? 'var(--ink-2)' : 'var(--paper-3)',
-                      border: c === 'on' ? 'none' : '1px dashed var(--rule)',
-                      transition: 'background 200ms ease',
-                    }}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-          <div style={{ marginTop: 8, fontSize: 10, color: 'var(--ink-3)', display: 'flex', gap: 12 }}>
-            <span><span style={{ display: 'inline-block', width: 8, height: 8, background: 'var(--ink-2)', borderRadius: 1, marginRight: 4, transform: 'translateY(1px)' }} />worked (4)</span>
-            <span><span style={{ display: 'inline-block', width: 8, height: 8, border: '1px dashed var(--rule)', borderRadius: 1, marginRight: 4, transform: 'translateY(1px)' }} />off (3)</span>
-          </div>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0,1fr))', gap: 10, marginTop: 4 }}>
-          <Stat label="productivity" delta="+4%" value="↑ 102%" />
-          <Stat label="burnout" delta="−71%" value="↓ 29%" bad />
-          <Stat label="revenue" delta="+1.4%" value="stable" />
-          <Stat label="retention" delta="+18%" value="↑ 91%" accent />
-        </div>
-        <div style={{ fontSize: 10.5, color: 'var(--ink-3)', fontFamily: 'var(--mono)' }}>
-          source: 61 organizations, 2,900+ workers, 2020–2025.
-        </div>
-      </div>
-    </>
-  );
-}
-
 function Sparkline({ data, height = 32 }) {
   const w = 200;
   const max = Math.max(...data);
@@ -293,7 +228,6 @@ export function MiniHabitsPreview() {
 export const PROJECT_PREVIEWS = {
   mambo: MamboPreview,
   blurt: BlurtPreview,
-  fourdays: FourDaysPreview,
   quietdash: QuietdashPreview,
   minihabits: MiniHabitsPreview,
 };

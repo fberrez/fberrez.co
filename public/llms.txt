@@ -17,7 +17,6 @@
 
 - [mambo](https://trymambo.app): Keyboard-driven desktop database client for macOS and Linux. Connects to PostgreSQL, MySQL/MariaDB, MongoDB, Redis, SQLite, ClickHouse, DuckDB, Elasticsearch, and Cassandra. Flagship project. Built with Tauri 2 + React + TypeScript.
 - [blurt.sh](https://blurt.sh): The simplest way to publish on the web. Push markdown, send an email, or just write. Your blog is live. Zero-config.
-- [4-days-workweek](https://4-days-workweek-production.up.railway.app): Evidence-based research on the 4-day workweek. 60+ global trials, peer-reviewed data, primary sources.
 - [quietdash.com](https://quietdash.com): A quiet dashboard. Numbers that matter, nothing that doesn't. Single-screen metrics view.
 - [minihabits](https://minihabits.co): A minimalist habit tracking app. One screen, tap, done, streak. No onboarding, no settings, no notifications.
 
