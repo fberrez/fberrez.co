@@ -7,6 +7,9 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
+ARG PUBLIC_UMAMI_WEBSITE_ID
+ENV PUBLIC_UMAMI_WEBSITE_ID=$PUBLIC_UMAMI_WEBSITE_ID
+
 COPY . .
 RUN pnpm run build
 
