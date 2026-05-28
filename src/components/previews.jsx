@@ -225,9 +225,99 @@ export function MiniHabitsPreview() {
   );
 }
 
+const LMCI_SALES = [
+  { no: '4081', item: 'Notion template', gross: '$29.00', fee: '−$5.73', net: '+$23.27' },
+  { no: '4082', item: 'AI prompt pack', gross: '$14.00', fee: '−$2.96', net: '+$11.04' },
+  { no: '4083', item: 'Lightroom presets', gross: '$39.00', fee: '−$7.71', net: '+$31.29' },
+];
+
+export function LetMeCookItPreview() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((n) => (n + 1) % LMCI_SALES.length), 2400);
+    return () => clearInterval(id);
+  }, []);
+  const sale = LMCI_SALES[i];
+
+  const phases = [
+    { name: 'discover', total: 4, done: 4 },
+    { name: 'build', total: 6, done: 4 },
+    { name: 'sell', total: 4, done: 0 },
+  ];
+  const hr = { borderTop: '1px dashed var(--rule)', margin: '5px 0' };
+
+  return (
+    <>
+      <div className="preview-hd">
+        <div className="dots"><i /><i /><i /></div>
+        <span className="ttl">letmecookit<span className="sep">▸</span>day 11<span className="sep">▸</span>build</span>
+        <span className="right">11 of 30</span>
+      </div>
+      <div className="preview-body" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: 12 }}>
+        <div style={{ background: 'var(--paper)', padding: '11px 13px', border: '1px solid var(--rule)', borderRadius: 4, fontFamily: 'var(--mono)', fontSize: 11.5, lineHeight: 1.55, color: 'var(--ink-2)', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--ink-4)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
+            <span>RECEIPT #{sale.no}</span>
+            <span>day 11</span>
+          </div>
+          <div style={hr} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, overflow: 'hidden' }}>
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{sale.item}</span>
+            <span style={{ color: 'var(--ink-3)' }}>{sale.gross}</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--ink-3)' }}>
+            <span>platform fee</span><span>{sale.fee}</span>
+          </div>
+          <div style={hr} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+            <span style={{ color: 'var(--ink-3)' }}>payout</span>
+            <span style={{ fontFamily: 'var(--serif)', fontSize: 21, color: 'var(--ok)', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{sale.net}</span>
+          </div>
+          <div style={{ marginTop: 'auto', paddingTop: 8, color: 'var(--ink-4)', fontSize: 10, textAlign: 'center', letterSpacing: '0.04em', overflow: 'hidden', whiteSpace: 'nowrap' }}>····· END OF RECEIPT ·····</div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 9, minWidth: 0 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+            <span style={{ fontSize: 10.5, color: 'var(--ink-3)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>roadmap</span>
+            <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-2)' }}>
+              day <b style={{ color: 'var(--ink)' }}>11</b> <span style={{ color: 'var(--ink-4)' }}>/ 30</span>
+            </span>
+          </div>
+          {phases.map((ph) => (
+            <div key={ph.name} style={{ display: 'grid', gridTemplateColumns: '58px minmax(0,1fr) 32px', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 12, color: 'var(--ink-2)' }}>{ph.name}</span>
+              <span style={{ display: 'flex', gap: 3 }}>
+                {Array.from({ length: ph.total }).map((_, n) => {
+                  const filled = n < ph.done;
+                  const current = n === ph.done && ph.name === 'build';
+                  return (
+                    <span
+                      key={n}
+                      style={{
+                        flex: 1,
+                        height: 8,
+                        borderRadius: 2,
+                        background: filled ? 'var(--ink-2)' : current ? 'var(--accent)' : 'var(--paper-3)',
+                        border: filled || current ? 'none' : '1px dashed var(--rule)',
+                      }}
+                    />
+                  );
+                })}
+              </span>
+              <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-3)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{ph.done}/{ph.total}</span>
+            </div>
+          ))}
+          <div style={{ marginTop: 'auto', fontFamily: 'var(--mono)', fontSize: 10.5, color: 'var(--ink-4)' }}>
+            8 of 14 steps · refund if no sale in 30
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 export const PROJECT_PREVIEWS = {
   mambo: MamboPreview,
   blurt: BlurtPreview,
   quietdash: QuietdashPreview,
   minihabits: MiniHabitsPreview,
+  letmecookit: LetMeCookItPreview,
 };
