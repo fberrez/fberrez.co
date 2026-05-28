@@ -22,29 +22,37 @@ function useParisClock() {
   };
 }
 
-export default function Workspace() {
+export default function Workspace({ mamboVersion }) {
   const [focusIdx, setFocusIdx] = useState(0);
   const [filter, setFilter] = useState('');
   const filterRef = useRef(null);
   const clock = useParisClock();
 
+  const projects = useMemo(() => {
+    if (!mamboVersion) return PROJECTS;
+    const v = mamboVersion.startsWith('v') ? mamboVersion : `v${mamboVersion}`;
+    return PROJECTS.map((p) =>
+      p.id === 'mambo' ? { ...p, tail: v, statusLabel: `flagship · ${v}` } : p
+    );
+  }, [mamboVersion]);
+
   const filtered = useMemo(() => {
     const q = filter.trim().toLowerCase();
-    if (!q) return PROJECTS;
-    return PROJECTS.filter(
+    if (!q) return projects;
+    return projects.filter(
       (p) =>
         p.name.toLowerCase().includes(q) ||
         p.tag.toLowerCase().includes(q) ||
         p.chips.some((c) => c.toLowerCase().includes(q)) ||
         p.kind.toLowerCase().includes(q)
     );
-  }, [filter]);
+  }, [filter, projects]);
 
   useEffect(() => {
     if (focusIdx >= filtered.length) setFocusIdx(Math.max(0, filtered.length - 1));
   }, [filtered.length, focusIdx]);
 
-  const current = filtered[focusIdx] || PROJECTS[0];
+  const current = filtered[focusIdx] || projects[0];
 
   useEffect(() => {
     const onKey = (e) => {
@@ -132,7 +140,7 @@ export default function Workspace() {
             <span className="corner">┌─</span>
             <span className="nm">shipped/</span>
             <span className="rest"></span>
-            <span className="meta">{filtered.length} of {PROJECTS.length}</span>
+            <span className="meta">{filtered.length} of {projects.length}</span>
           </div>
 
           <ul className="side-list" role="listbox" aria-activedescendant={`p-${current.id}`}>
@@ -169,9 +177,9 @@ export default function Workspace() {
 
           <div className="side-section">stats</div>
           <div className="stat-grid">
-            <div>active <b>{PROJECTS.filter((p) => p.status === 'active').length}</b></div>
-            <div>beta <b>{PROJECTS.filter((p) => p.status === 'beta').length}</b></div>
-            <div>shipped <b>{PROJECTS.length}</b></div>
+            <div>active <b>{projects.filter((p) => p.status === 'active').length}</b></div>
+            <div>beta <b>{projects.filter((p) => p.status === 'beta').length}</b></div>
+            <div>shipped <b>{projects.length}</b></div>
             <div>since <b>2019</b></div>
           </div>
 

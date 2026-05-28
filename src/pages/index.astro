@@ -1,11 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
 import Workspace from '../components/Workspace.jsx';
+
+// Mambo ships via Tauri auto-update; this is the same manifest installed copies read.
+// Fetched at build time so the project tail tracks the live release without manual edits.
+let mamboVersion = null;
+try {
+  const res = await fetch('https://downloads.trymambo.app/latest/latest.json');
+  if (res.ok) {
+    const data = await res.json();
+    if (data && typeof data.version === 'string') mamboVersion = data.version;
+  }
+} catch {
+  // Endpoint unreachable at build time; fall back to the version baked into projects.js.
+}
 ---
 
 <Base>
   <main class="page">
-    <Workspace client:load />
+    <Workspace client:load mamboVersion={mamboVersion} />
 
     <footer class="foot">
       <div class="links">
