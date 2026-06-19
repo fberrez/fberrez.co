@@ -127,11 +127,11 @@ export default function Workspace({ mamboVersion }) {
       </header>
 
       <p className="intro">
-        I build small,&nbsp;<em>focused</em> products — a lot of small things rather than one big thing.
+        I build small,&nbsp;<em>focused</em> products. A lot of small things rather than one big thing.
       </p>
       <p className="intro-sub">
         Desktop tools, developer ergonomics, quiet web things. Keyboard-first when it matters, boring tech, considered
-        defaults. Below is everything I&apos;m currently shipping — pick one.
+        defaults. Below is everything I&apos;m currently shipping. Pick one.
       </p>
 
       <section className="workspace" aria-label="Projects">
@@ -155,7 +155,7 @@ export default function Workspace({ mamboVersion }) {
                 aria-selected={i === focusIdx}
               >
                 <span className="idx">{String(i + 1).padStart(2, '0')}</span>
-                <span className={'st' + (p.status === 'beta' ? ' beta' : p.status === 'idea' ? ' idea' : '')}></span>
+                <span className={'st' + (p.status === 'beta' ? ' beta' : p.status === 'idea' ? ' idea' : p.status === 'archived' ? ' archived' : '')}></span>
                 <span className="nm">{p.name}</span>
                 <span className="tail">{p.tail}</span>
                 <a
@@ -178,7 +178,7 @@ export default function Workspace({ mamboVersion }) {
           <div className="side-section">stats</div>
           <div className="stat-grid">
             <div>active <b>{projects.filter((p) => p.status === 'active').length}</b></div>
-            <div>beta <b>{projects.filter((p) => p.status === 'beta').length}</b></div>
+            <div>wip <b>{projects.filter((p) => p.status === 'wip').length}</b></div>
             <div>shipped <b>{projects.length}</b></div>
             <div>since <b>2019</b></div>
           </div>

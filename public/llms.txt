@@ -1,6 +1,6 @@
 # Florent Berrez
 
-> Software engineer in Paris, France. Builds small, focused products — desktop tools, developer ergonomics, quiet web things. Keyboard-first when it matters, boring tech, considered defaults.
+> Software engineer in Paris, France. Builds small, focused products: desktop tools, developer ergonomics, quiet web things. Keyboard-first when it matters, boring tech, considered defaults.
 
 ## About
 
@@ -18,7 +18,7 @@
 - [mambo](https://trymambo.app): Keyboard-driven desktop database client for macOS and Linux. Connects to PostgreSQL, MySQL/MariaDB, MongoDB, Redis, SQLite, ClickHouse, DuckDB, Elasticsearch, and Cassandra. Flagship project. Built with Tauri 2 + React + TypeScript.
 - [blurt.sh](https://blurt.sh): The simplest way to publish on the web. Push markdown, send an email, or just write. Your blog is live. Zero-config.
 - [quietdash.com](https://quietdash.com): A quiet dashboard. Numbers that matter, nothing that doesn't. Single-screen metrics view.
-- [minihabits](https://minihabits.co): A minimalist habit tracking app. One screen, tap, done, streak. No onboarding, no settings, no notifications.
+- [minihabits](https://minihabits.co): A minimalist habit tracking app. One screen, tap, done, streak. No onboarding, no settings, no notifications. Discontinued, no longer maintained.
 
 ## Stack
 

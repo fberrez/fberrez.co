@@ -19,6 +19,7 @@
   --accent:  oklch(0.52 0.165 35);
   --accent-soft: oklch(0.52 0.165 35 / 0.14);
   --ok:      oklch(0.55 0.13 150);
+  --red:     oklch(0.55 0.19 27);
   --serif: 'Newsreader', 'Times New Roman', serif;
   --mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
@@ -205,6 +206,7 @@ body {
 }
 .row .st.beta { background: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
 .row .st.idea { background: var(--ink-4); box-shadow: none; }
+.row .st.archived { background: var(--red); box-shadow: 0 0 0 2px color-mix(in oklch, var(--red) 14%, transparent); }
 .row .nm { font-weight: 500; letter-spacing: -0.005em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .row .tail { font-size: 10px; color: var(--ink-4); letter-spacing: 0.08em; text-transform: uppercase; }
 .row.focused .tail { color: var(--ink-3); }
