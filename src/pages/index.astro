@@ -1,9 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
-import Workspace from '../components/Workspace.jsx';
+import { PROJECTS } from '../components/projects.js';
 
-// Mambo ships via Tauri auto-update; this is the same manifest installed copies read.
-// Fetched at build time so the project tail tracks the live release without manual edits.
+// mambo ships via Tauri auto-update; this is the same manifest installed copies read.
+// Fetched at build time so the project tag tracks the live release without manual edits.
 let mamboVersion = null;
 try {
   const res = await fetch('https://downloads.trymambo.app/latest/latest.json');
@@ -14,18 +14,56 @@ try {
 } catch {
   // Endpoint unreachable at build time; fall back to the version baked into projects.js.
 }
+
+const projects = PROJECTS.map((p) => {
+  if (p.id !== 'mambo' || !mamboVersion) return p;
+  const v = mamboVersion.startsWith('v') ? mamboVersion : `v${mamboVersion}`;
+  return { ...p, version: v };
+});
 ---
 
 <Base>
   <main class="page">
-    <Workspace client:load mamboVersion={mamboVersion} />
+    <header class="masthead">
+      <h1 class="name">Florent Berrez</h1>
+      <p class="role">Software engineer in Paris. I make small, focused products and ship them.</p>
+    </header>
+
+    <section class="lede" aria-label="Introduction">
+      <p class="statement">
+        A lot of small, <em>focused</em> things rather than one big thing.
+      </p>
+      <p class="say">
+        Desktop apps, simple web tools, and the occasional experiment. Things I wanted to
+        exist, made small enough to actually finish. Here is what I am working on now.
+      </p>
+    </section>
+
+    <section class="projects" aria-label="Projects">
+      <ol class="project-list">
+        {projects.map((p) => (
+          <li class={`project is-${p.status}`}>
+            <span class="project-status">{p.statusLabel}</span>
+            <div class="project-body">
+              <a class="project-name" href={p.href} target="_blank" rel="noopener noreferrer">
+                {p.name}<span class="arr" aria-hidden="true">↗</span>
+                <span class="vh"> (opens {p.domain} in a new tab)</span>
+              </a>
+              <span class="project-host">{p.domain}{p.version ? ` · ${p.version}` : ''}</span>
+              <p class="project-blurb">{p.blurb}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
 
     <footer class="foot">
+      <p class="foot-say">Say hello, or have a look at what I am building.</p>
       <div class="links">
         <a href="mailto:hi@fberrez.co">hi@fberrez.co</a>
-        <a href="https://github.com/fberrez" target="_blank" rel="noopener noreferrer">github</a>
+        <a href="https://github.com/fberrez" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
-      <div class="sig">fberrez, {new Date().getFullYear()}</div>
+      <div class="sig">Florent Berrez, {new Date().getFullYear()}</div>
     </footer>
   </main>
 </Base>
