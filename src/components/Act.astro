@@ -1,0 +1,97 @@
+---
+import MamboScene from './scenes/MamboScene.astro';
+import FoyerScene from './scenes/FoyerScene.astro';
+import QuietdashScene from './scenes/QuietdashScene.astro';
+import MinihabitsScene from './scenes/MinihabitsScene.astro';
+import BlurtScene from './scenes/BlurtScene.astro';
+
+const SCENES = {
+  mambo: MamboScene,
+  foyer: FoyerScene,
+  quietdash: QuietdashScene,
+  minihabits: MinihabitsScene,
+  blurt: BlurtScene,
+};
+
+// Per-act floating tokens, drawn from each product's world. They pop in
+// (staggered) when the act scrolls into view, then drift. Decorative only.
+// k = kind (drives styling/colour), t = label (empty for shape-only items),
+// x/y = position in %, d = entrance delay in ms.
+const FLOATIES = {
+  mambo: [
+    { k: 'kw', t: 'SELECT', x: 11, y: 20, d: 40 },
+    { k: 'key', t: '⌘K', x: 88, y: 24, d: 200 },
+    { k: 'kw', t: 'JOIN', x: 13, y: 80, d: 320 },
+    { k: 'kw', t: 'EXPLAIN', x: 89, y: 80, d: 460 },
+    { k: 'br', t: '{ }', x: 50, y: 9, d: 140 },
+  ],
+  foyer: [
+    { k: 'mote', t: '', x: 12, y: 24, d: 60 },
+    { k: 'wave', t: '∿', x: 87, y: 22, d: 260 },
+    { k: 'mote', t: '', x: 89, y: 72, d: 420 },
+    { k: 'note', t: '♪', x: 14, y: 80, d: 200 },
+  ],
+  quietdash: [
+    { k: 'up', t: '↑', x: 12, y: 22, d: 40 },
+    { k: 'chip', t: '+38m', x: 88, y: 15, d: 220 },
+    { k: 'check', t: '✓', x: 89, y: 82, d: 380 },
+    { k: 'dots', t: '', x: 13, y: 80, d: 160 },
+  ],
+  minihabits: [
+    { k: 'lift', t: '', x: 12, y: 22, d: 40 },
+    { k: 'check', t: '✓', x: 88, y: 17, d: 220 },
+    { k: 'plus', t: '+1', x: 89, y: 80, d: 380 },
+    { k: 'floor', t: '', x: 14, y: 80, d: 160 },
+  ],
+  blurt: [
+    { k: 'md', t: '#', x: 9, y: 12, d: 40 },
+    { k: 'md', t: '**', x: 90, y: 15, d: 180 },
+    { k: 'md', t: '>', x: 90, y: 82, d: 360 },
+    { k: 'md', t: '[]', x: 8, y: 91, d: 260 },
+    { k: 'tag', t: 'md', x: 50, y: 9, d: 120 },
+  ],
+};
+
+const { project: p } = Astro.props;
+const Scene = SCENES[p.scene];
+const tag = p.version ? `${p.domain} · ${p.version}` : p.domain;
+const floaties = FLOATIES[p.id] || [];
+---
+<section
+  class={`act act--${p.theme} is-${p.status}`}
+  id={`act-${p.id}`}
+  data-act={p.id}
+  aria-labelledby={`act-${p.id}-title`}
+>
+  <div class="floaties" aria-hidden="true">
+    {floaties.map((f, i) => (
+      <span
+        class={`floatie floatie--${f.k}`}
+        style={`--x:${f.x}%; --y:${f.y}%; --d:${f.d}ms; --dur:${(3.4 + (i % 3) * 0.7).toFixed(1)}s; --start:${(-0.6 * i).toFixed(1)}s`}
+      >
+        <i>{f.t}</i>
+      </span>
+    ))}
+  </div>
+  <div class="act-inner">
+    <div class="act-copy">
+      <p class="act-kicker reveal" style="--i:0">
+        <span class="act-badge">{p.statusLabel}</span>
+        <span class="act-kicker-text">{p.kicker}</span>
+      </p>
+      <h2 class="act-headline reveal" id={`act-${p.id}-title`} style="--i:1">{p.headline}</h2>
+      <p class="act-blurb reveal" style="--i:2">{p.blurb}</p>
+      <p class="act-cta reveal" style="--i:3">
+        <a class="act-link" href={p.href} target="_blank" rel="noopener noreferrer">
+          <span class="act-link-name">{p.name}</span>
+          <span class="act-link-tag">{tag}</span>
+          <span class="act-arr" aria-hidden="true">↗</span>
+          <span class="vh"> (opens {p.domain} in a new tab)</span>
+        </a>
+      </p>
+    </div>
+    <div class="act-stage reveal" style="--i:2">
+      <Scene />
+    </div>
+  </div>
+</section>

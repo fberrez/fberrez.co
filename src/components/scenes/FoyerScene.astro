@@ -1,0 +1,25 @@
+---
+// foyer: ambient sounds you place in space. Recreated as luminous orbs on
+// true black with distance rings and a YOU center. Orbs breathe in CSS.
+const orbs = [
+  { x: 28, y: 34, r: 1.0, d: 0 },
+  { x: 71, y: 28, r: 0.7, d: 1.4 },
+  { x: 78, y: 66, r: 0.85, d: 0.6 },
+  { x: 33, y: 72, r: 0.62, d: 2.1 },
+];
+---
+<div class="scene scene--foyer" aria-hidden="true">
+  <div class="foyer-field">
+    <span class="foyer-ring foyer-ring--1"></span>
+    <span class="foyer-ring foyer-ring--2"></span>
+    <span class="foyer-ring foyer-ring--3"></span>
+    <span class="foyer-you"><i></i><i></i></span>
+    {orbs.map((o) => (
+      <span
+        class="foyer-orb"
+        style={`left:${o.x}%; top:${o.y}%; --s:${o.r}; --delay:${o.d}s;`}
+      ></span>
+    ))}
+    <span class="foyer-caption">this room is quiet</span>
+  </div>
+</div>

@@ -34,3 +34,6 @@ yarn-error.log*
 # playwright local artifacts
 .playwright-mcp/
 mobile-iphone.png
+
+# impeccable design-tool critique snapshots (local notes)
+.impeccable/

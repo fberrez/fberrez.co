@@ -1,0 +1,23 @@
+---
+// minihabits: a calm habit system built on momentum, not streaks. Recreated as
+// the 30-cell momentum strip: lift (go full) / floor (show up) / miss, today outlined.
+const seq = 'lift floor lift lift floor miss lift lift floor lift miss floor lift lift lift floor lift miss lift floor lift lift floor lift lift miss floor lift lift floor'.split(' ');
+const today = seq.length - 1;
+---
+<div class="scene scene--minihabits" aria-hidden="true">
+  <div class="mh-card">
+    <div class="mh-head">
+      <span class="mh-name">Write 200 words</span>
+      <span class="mh-pct">81%<small>momentum</small></span>
+    </div>
+    <div class="mh-strip">
+      {seq.map((s, i) => (
+        <span class={`mh-cell mh-${s}${i === today ? ' is-today' : ''}`}></span>
+      ))}
+    </div>
+    <div class="mh-tiers">
+      <span class="mh-tier mh-tier--floor">Show up</span>
+      <span class="mh-tier mh-tier--lift">Go full</span>
+    </div>
+  </div>
+</div>
