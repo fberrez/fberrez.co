@@ -1,82 +1,59 @@
-// Each project becomes a full-viewport "act" that wears its own product's theme.
-// Order is a day -> night -> day arc for cinematic contrast, not by status.
-// `kicker` is the mono label, `headline` is the act's big line in the product's
-// own voice, `scene` selects the CSS mini-scene, `theme` matches the .act--<id> class.
+// The product table on the home page. Order is the order they get read in:
+// shipping things first, then what is being built, then what was retired.
+//
+// `state` drives both the word and its mark — 'live' gets a filled square,
+// 'wip' a hollow one, 'archived' neither. `version` is the right-hand column;
+// for products that do not version publicly it carries the platform or the
+// year instead, so the column is never empty.
 export const PROJECTS = [
   {
     id: 'mambo',
     name: 'mambo',
-    status: 'live',
-    statusLabel: 'Live',
+    desc: 'Database client, native, keyboard-driven',
+    state: 'live',
+    stateLabel: 'Live',
     version: 'v0.7',
-    act: 1,
-    kicker: '01 / Database client',
-    headline: 'Your data, the second you open it.',
-    blurb:
-      'A fast, native desktop client for PostgreSQL, MySQL and SQLite. Keyboard-driven, zero telemetry, about 38 MB. Open it, connect, and you are already looking at your data.',
     href: 'https://trymambo.app',
     domain: 'trymambo.app',
-    scene: 'mambo',
-    theme: 'mambo',
   },
   {
     id: 'foyer',
     name: 'foyer',
-    status: 'live',
-    statusLabel: 'Live',
-    act: 2,
-    kicker: '02 / Ambient sound',
-    headline: 'Place a sound, and the room lights up around you.',
-    blurb:
-      'Ambient soundscapes you arrange in space. Drop a few sounds around you, set the mood, and let it play from your Mac’s notch. macOS.',
+    desc: 'Ambient sound you arrange in space',
+    state: 'live',
+    stateLabel: 'Live',
+    version: 'macOS',
     href: 'https://usefoyer.app',
     domain: 'usefoyer.app',
-    scene: 'foyer',
-    theme: 'foyer',
   },
   {
     id: 'quietdash',
     name: 'quietdash',
-    status: 'wip',
-    statusLabel: 'In progress',
-    act: 3,
-    kicker: '03 / Ambient dashboard',
-    headline: 'Only the numbers that matter, on calm paper.',
-    blurb:
-      'A calm e-ink dashboard for people who value focus. One screen, the few numbers worth watching, rendered like print rather than a glowing app.',
+    desc: 'An e-ink dashboard that reads like print',
+    state: 'wip',
+    stateLabel: 'Building',
+    version: '—',
     href: 'https://quietdash.com',
     domain: 'quietdash.com',
-    scene: 'quietdash',
-    theme: 'quietdash',
-  },
-  {
-    id: 'minihabits',
-    name: 'minihabits',
-    status: 'archived',
-    statusLabel: 'Archived',
-    act: 4,
-    kicker: '04 / Habit system',
-    headline: 'Momentum, not perfection.',
-    blurb:
-      'A calm habit tracker built around momentum instead of fragile streaks. Two tiers a day, show up or go full, and a strip that remembers the last thirty days. No accounts, no notifications.',
-    href: 'https://minihabits.co',
-    domain: 'minihabits.co',
-    scene: 'minihabits',
-    theme: 'minihabits',
   },
   {
     id: 'blurt',
     name: 'blurt.sh',
-    status: 'live',
-    statusLabel: 'Live',
-    act: 5,
-    kicker: '05 / Publishing',
-    headline: 'Markdown in, posts everywhere.',
-    blurb:
-      'Own your social publishing. Write a post in markdown, or just send an email, and it goes live across every platform. Your posts stay files you own. No setup, no dashboard, no lock-in.',
+    desc: 'Markdown in, posts everywhere',
+    state: 'live',
+    stateLabel: 'Live',
+    version: '—',
     href: 'https://blurt.sh',
     domain: 'blurt.sh',
-    scene: 'blurt',
-    theme: 'blurt',
+  },
+  {
+    id: 'minihabits',
+    name: 'minihabits',
+    desc: 'Habits built on momentum, not streaks',
+    state: 'archived',
+    stateLabel: 'Archived',
+    version: '2025',
+    href: 'https://minihabits.co',
+    domain: 'minihabits.co',
   },
 ];

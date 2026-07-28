@@ -5,11 +5,42 @@ This is my personal website [fberrez.co](https://fberrez.co).
 ## Tech stack
 
 - Astro (static site)
-- React (workspace island)
-- Newsreader + JetBrains Mono via `@fontsource`
+- IBM Plex Mono + Source Serif 4 via `@fontsource`
+- Content Collections for the writing, `@astrojs/rss` for the feed
 - `satori` + `@resvg/resvg-js` for OG image generation at build time
 - nginx (container)
 - Railway (hosting + auto-deploy on `main`)
+
+## Structure
+
+Three routes and a feed:
+
+| Route              | What it is                                                |
+| ------------------ | --------------------------------------------------------- |
+| `/`                | Profile, the product table, the last three posts, contact  |
+| `/writing`         | Full archive, grouped by year once there is more than one  |
+| `/writing/<slug>`  | A post                                                     |
+| `/rss.xml`         | Feed                                                       |
+
+There is no `/about` — the home page opens with it — and no per-product pages,
+since each product has its own site and a stub here would compete with it.
+
+## Writing a post
+
+Drop a markdown file in `src/content/writing/`. It appears in the archive, on
+the home page, in the feed and in the sitemap. Reading time is counted from the
+file at build time.
+
+```yaml
+---
+title: Why mambo ships as a 38 MB binary
+description: One line, used as the lede, the meta description and the RSS summary.
+date: 2026-07-12
+topic: Tools, files   # optional, shown on the article's spec plate
+product: mambo        # optional
+draft: false          # drafts render in dev, never in a production build
+---
+```
 
 ## Getting started
 

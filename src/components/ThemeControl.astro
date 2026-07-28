@@ -1,0 +1,88 @@
+---
+// Three states, system first: it is the default and the one that respects a
+// choice the visitor already made at OS level. The two explicit options are an
+// override, so they are what gets persisted — "system" clears the key entirely.
+const OPTIONS = [
+  { value: 'system', label: 'Auto', hint: 'Follow the system setting' },
+  { value: 'light', label: 'Light', hint: 'Always use the light theme' },
+  { value: 'dark', label: 'Dark', hint: 'Always use the dark theme' },
+];
+---
+
+<div class="theme" role="group" aria-label="Colour theme">
+  {OPTIONS.map((o) => (
+    <button type="button" data-theme-set={o.value} aria-pressed="false" title={o.hint}>
+      {o.label}
+      <span class="vh"> theme</span>
+    </button>
+  ))}
+</div>
+
+<script>
+  const STORAGE_KEY = 'theme';
+  const root = document.documentElement;
+  const buttons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-set]'),
+  );
+  const meta = Array.from(
+    document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]'),
+  );
+  const system = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function read(): string {
+    try {
+      const v = localStorage.getItem(STORAGE_KEY);
+      return v === 'light' || v === 'dark' ? v : 'system';
+    } catch {
+      return 'system';
+    }
+  }
+
+  function apply(pref: string) {
+    if (pref === 'light' || pref === 'dark') {
+      root.setAttribute('data-theme', pref);
+    } else {
+      root.removeAttribute('data-theme');
+    }
+
+    buttons.forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.themeSet === pref));
+    });
+
+    paintChrome(pref);
+  }
+
+  // The two theme-color tags are scoped with `media`, which cannot express an
+  // explicit override. So on an override both are set to the same colour —
+  // whichever one the browser matches, it reports the chosen theme. On "system"
+  // each is restored to the value it shipped with.
+  function paintChrome(pref: string) {
+    meta.forEach((m) => {
+      if (!m.dataset.base) m.dataset.base = m.getAttribute('content') ?? '';
+    });
+    const colour = pref === 'dark' ? '#22262c' : '#f7f7f8';
+    meta.forEach((m) => {
+      m.setAttribute('content', pref === 'system' ? (m.dataset.base ?? colour) : colour);
+    });
+  }
+
+  buttons.forEach((b) => {
+    b.addEventListener('click', () => {
+      const pref = b.dataset.themeSet ?? 'system';
+      try {
+        if (pref === 'system') localStorage.removeItem(STORAGE_KEY);
+        else localStorage.setItem(STORAGE_KEY, pref);
+      } catch {
+        /* storage unavailable: the choice still applies for this page view */
+      }
+      apply(pref);
+    });
+  });
+
+  // Following the system means following it as it changes, not only at load.
+  system.addEventListener('change', () => {
+    if (read() === 'system') apply('system');
+  });
+
+  apply(read());
+</script>

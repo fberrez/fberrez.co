@@ -1,34 +1,31 @@
-/* Every act borrows the real type of the product it presents.
-   Static families load latin-only (this is an English page); variable families
-   ship every subset behind unicode-range, so browsers fetch only latin at runtime.
-   font-display: swap is set inside each @fontsource file. */
+/* Two families, two jobs.
 
-/* Intro / outro + foyer display voice */
-@import '@fontsource/newsreader/latin-400-italic.css';
-@import '@fontsource/newsreader/latin-500-italic.css';
-@import '@fontsource/newsreader/latin-400.css';
-@import '@fontsource/newsreader/latin-500.css';
+   IBM Plex Mono carries every structural element — labels, the product table,
+   dates, versions, navigation. It is what makes the page read as a datasheet
+   rather than as a blog, and it matches what the products themselves are
+   (a database client, a markdown CLI).
 
-/* Shared mono (also stands in for foyer's IBM Plex Mono and quietdash's Martian Mono) */
-@import '@fontsource/jetbrains-mono/latin-400.css';
-@import '@fontsource/jetbrains-mono/latin-500.css';
+   Source Serif 4 carries everything meant to be read at length: the opening
+   statement, product descriptions, and article bodies. Mono is punishing past
+   a paragraph, so prose never touches it.
 
-/* mambo */
-@import '@fontsource/geist-sans/latin-400.css';
-@import '@fontsource/geist-sans/latin-500.css';
-@import '@fontsource/geist-sans/latin-600.css';
-@import '@fontsource/geist-mono/latin-400.css';
-@import '@fontsource/geist-mono/latin-500.css';
+   Latin subsets only — the site is in English. The variable serif ships every
+   subset behind unicode-range, so browsers fetch only what they need. */
 
-/* foyer, quietdash, minihabits headings */
-@import '@fontsource-variable/bricolage-grotesque/wght.css';
+/* Structure */
+@import '@fontsource/ibm-plex-mono/latin-400.css';
+@import '@fontsource/ibm-plex-mono/latin-500.css';
 
-/* quietdash body */
-@import '@fontsource-variable/hanken-grotesk/wght.css';
+/* Reading.
+   The weight axis, not the optical-size axis: the opsz builds are 120 KB each
+   against 52 KB, and the difference is barely visible at the two sizes this
+   site sets. 144 KB for that would be off-brand here.
 
-/* minihabits body */
-@import '@fontsource-variable/dm-sans/wght.css';
-
-/* blurt display + body */
-@import '@fontsource-variable/space-grotesk/wght.css';
-@import '@fontsource-variable/inter/wght.css';
+   These two entrypoints declare every subset (cyrillic, greek, vietnamese…),
+   so dist/ carries more woff2 than an English site needs. That is on disk only
+   — each @font-face is scoped by unicode-range, so a reader downloads latin and
+   nothing else. Hand-writing @font-face against fontsource's internal filenames
+   would trim the build but break silently on the next package bump, for no gain
+   on the wire. */
+@import '@fontsource-variable/source-serif-4/wght.css';
+@import '@fontsource-variable/source-serif-4/wght-italic.css';

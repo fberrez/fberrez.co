@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import Act from '../components/Act.astro';
 import { PROJECTS } from '../components/projects.js';
+import { getPosts, readingTime, isoDate } from '../lib/posts';
 
-// mambo ships via Tauri auto-update; this is the same manifest installed copies read.
-// Fetched at build time so the project tag tracks the live release without manual edits.
+// mambo ships via Tauri auto-update; this is the same manifest installed copies
+// read. Fetched at build time so the version tracks the live release instead of
+// drifting in projects.js.
 let mamboVersion = null;
 try {
   const res = await fetch('https://downloads.trymambo.app/latest/latest.json');
@@ -13,120 +14,87 @@ try {
     if (data && typeof data.version === 'string') mamboVersion = data.version;
   }
 } catch {
-  // Endpoint unreachable at build time; fall back to the version baked into projects.js.
+  // Unreachable at build time; fall back to the version in projects.js.
 }
 
-const projects = PROJECTS.map((p) => {
+const products = PROJECTS.map((p) => {
   if (p.id !== 'mambo' || !mamboVersion) return p;
-  const v = mamboVersion.startsWith('v') ? mamboVersion : `v${mamboVersion}`;
-  return { ...p, version: v };
+  return { ...p, version: mamboVersion.startsWith('v') ? mamboVersion : `v${mamboVersion}` };
 });
 
-const year = new Date().getFullYear();
-
-// Each world's accent, retuned to read on the linen hero, so the opener carries
-// the whole journey's palette instead of staying monochrome.
-const WORLD_TINT = {
-  mambo: 'oklch(0.55 0.12 185)',
-  foyer: 'oklch(0.32 0.012 250)',
-  quietdash: 'oklch(0.52 0.16 36)',
-  minihabits: 'oklch(0.5 0.155 256)',
-  blurt: 'oklch(0.5 0.2 16)',
-};
+const posts = (await getPosts()).slice(0, 3);
 ---
 
-<Base>
-  <main class="reel">
-    <!-- Intro: Florent's own identity opens the reel -->
-    <section class="act act--intro" id="act-intro" data-act="intro" aria-labelledby="intro-title">
-      <div class="intro-bg" aria-hidden="true"></div>
-      <div class="act-inner intro-inner">
-        <p class="intro-eyebrow reveal" style="--i:0">Florent Berrez · Paris</p>
-        <h1 class="intro-name reveal" id="intro-title" style="--i:1">
-          A lot of small, <em>focused</em> things rather than one big thing.
-        </h1>
-        <p class="intro-say reveal" style="--i:2">
-          Desktop apps and small web tools. Things I wanted to exist, made small enough to
-          actually finish.
-        </p>
-        <p class="intro-index reveal" style="--i:3">
-          <span class="ii-label">Ahead</span>
-          {projects.map((p, i) => (
-            <>
-              <a class="ii-w" style={`--c:${WORLD_TINT[p.id]}`} href={`#act-${p.id}`}>{p.id}</a><span class="ii-sep">{i < projects.length - 1 ? ', ' : '.'}</span>
-            </>
+<Base section="index">
+  <section class="block" aria-labelledby="profile">
+    <h2 class="block-label" id="profile">Profile</h2>
+    <div>
+      <p class="say">I make small software and I actually finish it.</p>
+      <p class="sub">
+        Native desktop apps and small web tools, built for people who would rather own their
+        files than rent an account. No telemetry, no dashboards you did not ask for.
+      </p>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="products">
+    <h2 class="block-label" id="products">Products</h2>
+    <div>
+      <div class="th" aria-hidden="true">
+        <span>No</span><span>Name</span><span>What it is</span>
+        <span>State</span><span class="t-ver">Version</span><span></span>
+      </div>
+      {products.map((p, i) => (
+        <a class="tr" href={p.href} target="_blank" rel="noopener noreferrer me">
+          <span class="t-no">{String(i + 1).padStart(2, '0')}</span>
+          <span class="t-name">{p.name}</span>
+          <span class="t-desc">{p.desc}</span>
+          <span class="t-state">
+            <span
+              class={
+                p.state === 'live' ? 'dot-live' : p.state === 'wip' ? 'dot-wip' : 'dot-off'
+              }>{p.stateLabel}</span>
+          </span>
+          <span class="t-ver">{p.version}</span>
+          <span class="arr" aria-hidden="true">↗</span>
+          <span class="vh">— opens {p.domain} in a new tab</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="writing">
+    <h2 class="block-label" id="writing">Writing</h2>
+    <div>
+      {posts.length === 0 ? (
+        <p class="empty">Nothing published yet.</p>
+      ) : (
+        <>
+          {posts.map((post) => (
+            <a class="wr" href={`/writing/${post.id}`}>
+              <span class="w-date">{isoDate(post.data.date)}</span>
+              <span class="w-title">{post.data.title}</span>
+              <span class="w-mins">{readingTime(post.body)} min</span>
+              <span class="arr" aria-hidden="true">→</span>
+            </a>
           ))}
-        </p>
-        <p class="intro-scroll reveal" style="--i:4" aria-hidden="true">
-          <span class="intro-scroll-line"></span> Scroll
-        </p>
-      </div>
-    </section>
+          <a class="pill" href="/writing">
+            Everything <span aria-hidden="true">→</span>
+          </a>
+        </>
+      )}
+    </div>
+  </section>
 
-    {projects.map((p) => <Act project={p} />)}
-
-    <!-- Outro: back to Florent's identity, with the way to reach him -->
-    <section class="act act--outro" id="act-outro" data-act="outro" aria-labelledby="outro-title">
-      <div class="act-inner intro-inner">
-        <h2 class="intro-name reveal" id="outro-title" style="--i:0">Say hello.</h2>
-        <p class="intro-say reveal" style="--i:1">
-          That is the current shelf. If one of them is useful to you, or you just want to talk
-          shop, I would like to hear it.
-        </p>
-        <div class="outro-links reveal" style="--i:2">
-          <a href="mailto:hi@fberrez.co">hi@fberrez.co</a>
-          <a href="https://github.com/fberrez" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </div>
-        <p class="outro-sig reveal" style="--i:3">Florent Berrez, {year}</p>
-      </div>
-    </section>
-  </main>
-
-  <!-- Reel progress: one dot per panel, marks the active act -->
-  <nav class="reel-nav" aria-label="Sections">
-    <a class="reel-dot" href="#act-intro" data-target="intro" aria-label="Intro"></a>
-    {projects.map((p) => (
-      <a class="reel-dot" href={`#act-${p.id}`} data-target={p.id} aria-label={p.name}></a>
-    ))}
-    <a class="reel-dot" href="#act-outro" data-target="outro" aria-label="Contact"></a>
-  </nav>
+  <section class="block" aria-labelledby="elsewhere">
+    <h2 class="block-label" id="elsewhere">Elsewhere</h2>
+    <div class="links">
+      <a href="mailto:hi@fberrez.co">hi@fberrez.co</a>
+      <a href="https://github.com/fberrez" rel="me noopener noreferrer" target="_blank">GitHub</a>
+      <a href="https://bsky.app/profile/fberrez.co" rel="me noopener noreferrer" target="_blank">
+        Bluesky
+      </a>
+      <a href="/rss.xml">RSS</a>
+    </div>
+  </section>
 </Base>
-
-<script>
-  const acts = Array.from(document.querySelectorAll<HTMLElement>('.act[data-act]'));
-  const dots = Array.from(document.querySelectorAll<HTMLAnchorElement>('.reel-dot'));
-  const themeMeta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
-  const dotByTarget = new Map(dots.map((d) => [d.dataset.target, d]));
-
-  // Reveal each act's content once, when it scrolls into view.
-  const reveal = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-visible');
-          reveal.unobserve(e.target);
-        }
-      }
-    },
-    { threshold: 0.25 },
-  );
-  acts.forEach((a) => reveal.observe(a));
-
-  // Track the active act for the progress dots and the browser chrome colour.
-  const active = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        const id = (e.target as HTMLElement).dataset.act!;
-        dots.forEach((d) => d.removeAttribute('aria-current'));
-        dotByTarget.get(id)?.setAttribute('aria-current', 'true');
-        const bg = getComputedStyle(e.target as HTMLElement).getPropertyValue('--chrome').trim();
-        if (bg && themeMeta) themeMeta.setAttribute('content', bg);
-      }
-    },
-    { threshold: 0.6 },
-  );
-  acts.forEach((a) => active.observe(a));
-  // Dots are real #id anchors: native scroll handles the jump and respects
-  // prefers-reduced-motion via the scroll-behavior rule in the stylesheet.
-</script>

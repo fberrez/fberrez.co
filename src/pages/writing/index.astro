@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getPosts, byYear, readingTime, monthDay, isoDate } from '../../lib/posts';
+
+const posts = await getPosts();
+const years = byYear(posts);
+
+// At roughly a post a month, year headings only earn their place once there is
+// more than one year to tell apart. Until then they would be a label on nothing.
+const showYears = years.length > 1;
+
+const TITLE = 'Writing — Florent Berrez';
+const DESCRIPTION =
+  'Notes on shipping small software: what broke, what I would not build again, and why the thing ended up smaller than planned.';
+---
+
+<Base title={TITLE} description={DESCRIPTION} section="writing">
+  <section class="block" aria-labelledby="archive">
+    <h1 class="block-label" id="archive">Archive</h1>
+    <div>
+      <p class="say">Notes on shipping small software.</p>
+      <p class="sub">
+        Roughly one a month. Mostly what broke, what I would not build again, and why the
+        thing ended up smaller than planned.
+      </p>
+    </div>
+  </section>
+
+  {posts.length === 0 ? (
+    <section class="block">
+      <span class="block-label"></span>
+      <p class="empty">Nothing published yet. The first one is in progress.</p>
+    </section>
+  ) : (
+    years.map(({ year, posts }) => (
+      <section class={showYears ? 'year' : 'block'} aria-label={`Posts from ${year}`}>
+        <span class={showYears ? 'y' : 'block-label'}>{showYears ? year : 'Posts'}</span>
+        <div>
+          {posts.map((post) => (
+            <a class="wr" href={`/writing/${post.id}`}>
+              <span class="w-date">
+                {showYears ? monthDay(post.data.date) : isoDate(post.data.date)}
+              </span>
+              <span class="w-title">{post.data.title}</span>
+              <span class="w-mins">{readingTime(post.body)} min</span>
+              <span class="arr" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))
+  )}
+</Base>

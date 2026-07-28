@@ -1,0 +1,62 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPosts, readingTime, isoDate } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const mins = readingTime(post.body);
+---
+
+<Base
+  title={`${post.data.title} — Florent Berrez`}
+  description={post.data.description}
+  article={{ published: post.data.date, modified: post.data.updated }}
+  section="writing"
+>
+  <article>
+    <div class="block" style="border-bottom:none;border-image:none;padding-bottom:0">
+      <span class="block-label"></span>
+      <div>
+        <h1 class="h1">{post.data.title}</h1>
+        <p class="lede">{post.data.description}</p>
+      </div>
+    </div>
+
+    <div class="art">
+      <aside class="spec" aria-label="About this post">
+        <div>
+          <span>Published</span>
+          <b><time datetime={post.data.date.toISOString()}>{isoDate(post.data.date)}</time></b>
+        </div>
+        {post.data.updated && (
+          <div>
+            <span>Updated</span>
+            <b>
+              <time datetime={post.data.updated.toISOString()}>{isoDate(post.data.updated)}</time>
+            </b>
+          </div>
+        )}
+        <div><span>Reading</span><b>{mins} min</b></div>
+        {post.data.topic && <div><span>Topic</span><b>{post.data.topic}</b></div>}
+        {post.data.product && <div><span>Product</span><b>{post.data.product}</b></div>}
+      </aside>
+
+      <div>
+        <div class="prose">
+          <Content />
+        </div>
+
+        <footer class="art-foot">
+          <a href="/writing">← All writing</a>
+          <span>Florent Berrez · Paris</span>
+        </footer>
+      </div>
+    </div>
+  </article>
+</Base>

@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+
+// nginx.conf has pointed error_page 404 at /404.html since the first deploy;
+// until now the file was never shipped, so a bad URL fell through to nginx's
+// own default page.
+---
+
+<Base title="Not found — Florent Berrez" description="That page does not exist.">
+  <section class="block">
+    <span class="block-label">404</span>
+    <div>
+      <p class="say">That page does not exist.</p>
+      <p class="sub">
+        It may have moved, or it may never have been here. The index and the archive both
+        still work.
+      </p>
+      <div class="links" style="margin-top:26px">
+        <a href="/">Index</a>
+        <a href="/writing">Writing</a>
+        <a href="mailto:hi@fberrez.co">hi@fberrez.co</a>
+      </div>
+    </div>
+  </section>
+</Base>
