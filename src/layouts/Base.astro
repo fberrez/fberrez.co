@@ -167,8 +167,17 @@ const articleJsonLd = article && {
       <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
     )}
 
+    {/*
+      Analytics is the only third-party origin on the page, and Lighthouse
+      measured 168 ms lost to setting up its connection. Fonts and CSS are
+      same-origin, so this is the one preconnect worth spending.
+    */}
     {UMAMI_WEBSITE_ID && (
-      <script defer src="https://umami.fberrez.co/script.js" data-website-id={UMAMI_WEBSITE_ID} />
+      <>
+        <link rel="preconnect" href="https://umami.fberrez.co" crossorigin />
+        <link rel="dns-prefetch" href="https://umami.fberrez.co" />
+        <script defer src="https://umami.fberrez.co/script.js" data-website-id={UMAMI_WEBSITE_ID} />
+      </>
     )}
   </head>
   <body>
