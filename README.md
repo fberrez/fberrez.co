@@ -62,9 +62,10 @@ $ pnpm preview
 
 ### Environment
 
-| Variable                    | Purpose                                                   |
-| --------------------------- | --------------------------------------------------------- |
-| `PUBLIC_UMAMI_WEBSITE_ID`   | Umami website ID. If unset, the analytics script is omitted. |
+| Variable                           | Purpose                                                          |
+| ---------------------------------- | ---------------------------------------------------------------- |
+| `PUBLIC_UMAMI_WEBSITE_ID`          | Umami website ID. If unset, the analytics script is omitted.       |
+| `PUBLIC_GOOGLE_SITE_VERIFICATION`  | Search Console "HTML tag" token. If unset, the tag is omitted.     |
 
 ### Docker deployment
 

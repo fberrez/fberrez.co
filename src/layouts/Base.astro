@@ -5,6 +5,10 @@ import { getPosts } from '../lib/posts';
 
 const SITE_URL = 'https://www.fberrez.co';
 const UMAMI_WEBSITE_ID = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+// Search Console's "HTML tag" verification. Set the token on Railway and
+// redeploy, then press Verify in Search Console. Same pattern as the analytics
+// id above: unset means the tag is simply omitted.
+const GOOGLE_SITE_VERIFICATION = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 interface Props {
   title?: string;
@@ -117,6 +121,10 @@ const articleJsonLd = article && {
         }
       })();
     </script>
+
+    {GOOGLE_SITE_VERIFICATION && (
+      <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
+    )}
 
     <title>{title}</title>
     <meta name="description" content={description} />
