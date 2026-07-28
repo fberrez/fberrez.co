@@ -14,7 +14,11 @@ const DESCRIPTION =
   'Notes on shipping small software: what broke, what I would not build again, and why the thing ended up smaller than planned.';
 ---
 
-<Base title={TITLE} description={DESCRIPTION} section="writing">
+{/*
+  While the archive is empty it is unlinked from the site, so keeping it out of
+  the index stops search engines from surfacing a page that says nothing.
+*/}
+<Base title={TITLE} description={DESCRIPTION} section="writing" noindex={posts.length === 0}>
   <section class="block" aria-labelledby="archive">
     <h1 class="block-label" id="archive">Archive</h1>
     <div>

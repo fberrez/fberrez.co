@@ -1,0 +1,2 @@
+# Keeps the collection directory in git while there are no posts.
+# The glob loader warns on a missing base directory.

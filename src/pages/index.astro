@@ -63,28 +63,24 @@ const posts = (await getPosts()).slice(0, 3);
     </div>
   </section>
 
-  <section class="block" aria-labelledby="writing">
-    <h2 class="block-label" id="writing">Writing</h2>
-    <div>
-      {posts.length === 0 ? (
-        <p class="empty">Nothing published yet.</p>
-      ) : (
-        <>
-          {posts.map((post) => (
-            <a class="wr" href={`/writing/${post.id}`}>
-              <span class="w-date">{isoDate(post.data.date)}</span>
-              <span class="w-title">{post.data.title}</span>
-              <span class="w-mins">{readingTime(post.body)} min</span>
-              <span class="arr" aria-hidden="true">→</span>
-            </a>
-          ))}
-          <a class="pill" href="/writing">
-            Everything <span aria-hidden="true">→</span>
+  {posts.length > 0 && (
+    <section class="block" aria-labelledby="writing">
+      <h2 class="block-label" id="writing">Writing</h2>
+      <div>
+        {posts.map((post) => (
+          <a class="wr" href={`/writing/${post.id}`}>
+            <span class="w-date">{isoDate(post.data.date)}</span>
+            <span class="w-title">{post.data.title}</span>
+            <span class="w-mins">{readingTime(post.body)} min</span>
+            <span class="arr" aria-hidden="true">→</span>
           </a>
-        </>
-      )}
-    </div>
-  </section>
+        ))}
+        <a class="pill" href="/writing">
+          Everything <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  )}
 
   <section class="block" aria-labelledby="elsewhere">
     <h2 class="block-label" id="elsewhere">Elsewhere</h2>
@@ -94,7 +90,7 @@ const posts = (await getPosts()).slice(0, 3);
       <a href="https://bsky.app/profile/fberrez.co" rel="me noopener noreferrer" target="_blank">
         Bluesky
       </a>
-      <a href="/rss.xml">RSS</a>
+      {posts.length > 0 && <a href="/rss.xml">RSS</a>}
     </div>
   </section>
 </Base>

@@ -6,7 +6,12 @@ import Base from '../layouts/Base.astro';
 // own default page.
 ---
 
-<Base title="Not found — Florent Berrez" description="That page does not exist.">
+<Base
+  title="Not found — Florent Berrez"
+  description="That page does not exist."
+  noindex
+  ogSlug="index"
+>
   <section class="block">
     <span class="block-label">404</span>
     <div>
