@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.fberrez.co/sitemap-index.xml
-Host: https://www.fberrez.co
