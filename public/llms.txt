@@ -15,11 +15,11 @@
 
 ## Currently shipping
 
-- [mambo](https://trymambo.app): Keyboard-driven desktop database client for macOS and Linux. Connects to PostgreSQL, MySQL/MariaDB, MongoDB, Redis, SQLite, ClickHouse, DuckDB, Elasticsearch, and Cassandra. Flagship project. Built with Tauri 2 + React + TypeScript.
 - [foyer](https://usefoyer.app): Ambient soundscapes you arrange in space. Place sounds around you, set the mood, play it from the Mac notch. macOS.
-- [blurt.sh](https://blurt.sh): The simplest way to publish on the web. Push markdown, send an email, or just write. Your blog is live. Zero-config.
+- [minihabits](https://minihabits.co): A minimalist habit tracking app. One screen, tap, done. Habits built on momentum, not streaks. No onboarding, no settings, no notifications. iOS.
+- [mambo](https://trymambo.app): Keyboard-driven desktop database client for macOS and Linux. Connects to PostgreSQL, MySQL/MariaDB, MongoDB, Redis, SQLite, ClickHouse, DuckDB, Elasticsearch, and Cassandra. Flagship project. Built with Tauri 2 + React + TypeScript.
 - [quietdash.com](https://quietdash.com): A quiet dashboard. Numbers that matter, nothing that doesn't. Single-screen metrics view. In progress.
-- [minihabits](https://minihabits.co): A minimalist habit tracking app. One screen, tap, done, streak. No onboarding, no settings, no notifications. Archived, no longer maintained.
+- [blurt.sh](https://blurt.sh): The simplest way to publish on the web. Push markdown, send an email, or just write. Your blog is live. Zero-config. In progress.
 
 ## Writing
 

@@ -16,7 +16,7 @@ export async function getStaticPaths() {
       props: {
         card: {
           label: 'PROFILE',
-          title: 'I make small software and I actually finish it.',
+          title: 'I make software that stays small on purpose.',
           rows: PROJECTS.filter((p) => p.state !== 'archived').map(
             (p) => [p.name, p.desc] as [string, string],
           ),
