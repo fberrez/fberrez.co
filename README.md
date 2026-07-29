@@ -96,6 +96,43 @@ $ docker compose up -d
 $ docker compose logs -f
 ```
 
+## Search Console
+
+`scripts/gsc.mjs` talks to Google Search Console from the terminal, so checking
+whether a post got picked up does not mean clicking through the UI.
+
+```bash
+node scripts/gsc.mjs sitemaps          # what is submitted, when it was last read
+node scripts/gsc.mjs submit            # (re)submit the sitemap so Google re-reads it
+node scripts/gsc.mjs inspect <url>     # verdict, coverage, canonical, last crawl
+node scripts/gsc.mjs perf [days]       # clicks and impressions, top pages and queries
+```
+
+Set up once, with the account that owns the property:
+
+```bash
+gcloud auth application-default login \
+  --scopes=https://www.googleapis.com/auth/webmasters,https://www.googleapis.com/auth/cloud-platform
+```
+
+Sign in as **florent.berrez@gmail.com**. Chrome's default Google account here is
+the Korint work one, which owns none of these properties and makes Search
+Console look empty.
+
+For unattended use (cron, CI) point `GSC_SERVICE_ACCOUNT_KEY` at a service
+account JSON key instead, and add that account's email under Settings > Users
+and permissions on the property. `GSC_SITE` overrides the property, which
+defaults to `sc-domain:fberrez.co`.
+
+No dependencies: the script signs its own JWT with `node:crypto`.
+
+### What the API will not do
+
+There is no API behind the "Request indexing" button. The Indexing API exists,
+but Google supports it only for `JobPosting` and `BroadcastEvent` pages, so
+aiming it at an article is off spec. Resubmitting the sitemap is the supported
+way to ask for another look, and `inspect` tells you whether it worked.
+
 ## Deployment
 
 Railway watches the `main` branch and rebuilds the Docker image on every push, then deploys it. There is also a `.github/workflows/deploy.yml` workflow (disabled, `workflow_dispatch` only) that was used for the previous OVH VPS setup — kept for reference.
