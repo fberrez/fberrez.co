@@ -23,7 +23,11 @@ Here is what came back.
     <source src="/writing/claude-landing-pages/v1.webm" type="video/webm" />
     <source src="/writing/claude-landing-pages/v1.mp4" type="video/mp4" />
   </video>
-  <figcaption>First run. One sentence of prompt, no tools beyond a browser.</figcaption>
+  <figcaption>
+    First run. One sentence of prompt, no tools beyond a browser.
+    <a href="/writing/claude-landing-pages/v1">Open the page itself</a>, exactly as it was
+    generated. Nothing in it has been edited, including the parts that are not true.
+  </figcaption>
 </figure>
 
 I have to be fair before I take it apart. That is not a bad page.
@@ -71,11 +75,23 @@ Its reasoning was sound, and it wrote it down: system stacks only, so nothing si
 
 The bit I keep coming back to is that it did check. It verified its work at 1440, 1280 and 390 pixels, it said so, and I believe it. It just did that on a Mac, where Didot exists. It cannot install Windows to see the other half. It picked a typeface it could see and had no way to learn what everyone else got.
 
+## The mobile check was worthless
+
+That page has no doctype. No `<html>` element, no `lang`, and no `<meta name="viewport">`. It opens on a `<title>` tag.
+
+Load it in an emulated iPhone and here is what you get. The layout viewport is 980 pixels wide, not 390. The `max-width: 620px` media query never matches. The browser is in quirks mode, because there is no doctype to put it in standards mode.
+
+So every line of phone styling in that file is dead code. A visitor on a phone gets the desktop layout scaled down to illegibility, and the careful mobile work underneath it never runs.
+
+Now hold that against the sentence I just quoted. It checked at 390 pixels and the check passed. It passed because a headless browser told to be 390 wide is 390 wide, whether or not the page asked to be. The harness quietly supplied the thing the page had forgotten, and the test came back green.
+
+I did the same thing, which is the only reason I am confident about how easy it is. My first pass measured this page at 375 pixels and reported no horizontal overflow, and I wrote that down as a point in its favour. It was meaningless. I had set a viewport instead of emulating a phone, so I was testing my own harness. I found the real bug later, by accident, while getting the file ready to publish alongside this post.
+
 ## The pattern
 
-Three failures, one cause.
+Four failures, one cause.
 
-The model only has its own head. Anything it cannot derive from text it either skips or invents. Images need a source it does not have, so they do not appear. Numbers need a business it has never seen, so they get generated at exactly the right level of plausibility. Fonts need a rendering machine that is not the one it is sitting on.
+The model only has its own head. Anything it cannot derive from text it either skips or invents. Images need a source it does not have, so they do not appear. Numbers need a business it has never seen, so they get generated at exactly the right level of plausibility. Fonts need a rendering machine that is not the one it is sitting on. And a phone is a physical object it has never held, so the tag that would have made the page fit one never got written.
 
 None of this is a design problem, and you cannot prompt your way out of it. This is where most advice about this stops being useful. "Be more specific" does not conjure a photograph. The fix is to stop asking a text engine to be an art department, and to give it access to things that exist.
 
@@ -83,7 +99,7 @@ None of this is a design problem, and you cannot prompt your way out of it. This
 
 I went and priced the stack. Everything below I checked against the vendor's own page on 29 July 2026, because these numbers move and I did not want to repeat what a blog post said in 2024. Prices are what was served to me in Paris, and several of them are region localised, which I flag where it matters.
 
-Sorted by which of the three failures each one fixes.
+Sorted by which failure each one fixes.
 
 ### For the missing pictures
 
@@ -132,7 +148,9 @@ Small thing I enjoyed. Tailwind's own pricing page carries a testimonial about b
 
 Everyone recommends these as the fix, so let me be precise about what they do, because my own first run is the counterexample.
 
-That page was built with a browser available, the agent used it, and it still shipped all three failures. A browser catches layout bugs. It does not catch a fabricated customer or a missing photograph, because neither of those is visible as a defect. The page looks finished. That is the problem.
+That page was built with a browser available, the agent used it, and it still shipped every failure above. A browser catches layout bugs. It does not catch a fabricated customer or a missing photograph, because neither of those is visible as a defect. The page looks finished. That is the problem.
+
+Worse, a browser will hand you a passing grade on a test you are not really running. The missing viewport tag is the case in point. Both the agent and I resized a window, called it mobile, and got a clean result on a page that is broken on every phone in existence. If you take one practical thing from this post, make it this: emulate a device, do not set a width. In Playwright that is the difference between `newPage({ viewport })` and a real device descriptor, and it is the difference between testing the page and testing your own harness.
 
 There is also a line in Playwright MCP's own documentation that tends to get skipped: it tells you to act on the accessibility tree, and that screenshots are "for viewing only, you can't perform actions based on the screenshot". So what you get is structural self inspection, plus an image a vision model can be asked to criticise. Calling that "the agent can see its design" is a stretch.
 
@@ -162,12 +180,18 @@ So I ran it again. Identical prompt, same model, with the stack wired in: Mobbin
     <source src="/writing/claude-landing-pages/v2.webm" type="video/webm" />
     <source src="/writing/claude-landing-pages/v2.mp4" type="video/mp4" />
   </video>
-  <figcaption>Second run. Same sentence, plus tools that reach outside the model.</figcaption>
+  <figcaption>
+    Second run. Same sentence, plus tools that reach outside the model.
+    <a href="/writing/claude-landing-pages/v2">Open the page itself</a>. Both are served
+    unedited and carry a noindex header, since one of them cites a customer who does not exist.
+  </figcaption>
 </figure>
 
 Measured rather than admired, here is what changed.
 
-Six photographs, generated for this page. Thirty-two real icons. The headline resolves to Boska and the body to Switzer, both loaded from Fontshare, so a visitor on Windows sees the page I saw. No horizontal overflow at 375 pixels, and no invented statistic anywhere in the file.
+Six photographs, generated for this page. Thirty-two real icons. The headline resolves to Boska and the body to Switzer, both loaded from Fontshare, so a visitor on Windows sees the page I saw. No invented statistic anywhere in the file.
+
+It has a doctype and a viewport tag, so I re-ran the phone test properly on it, the emulated way rather than the resized way. Layout viewport 390, the phone styles actually applying, standards mode. The thing the first page only appeared to pass.
 
 The booking mockup stopped being guesswork too. The day strip, the time pills, the stylist card and the sticky total bar came off real flows it pulled from Mobbin: Careem's date and time picker, Fresha and Square Go for the service row, Zocdoc and Warby Parker for the practitioner header. Every one of those conventions shipped somewhere before it arrived on this page. It also declined to draw the App Store and Google Play badges, on the grounds that those are trademarks, and used plain buttons instead. I did not ask for that.
 
