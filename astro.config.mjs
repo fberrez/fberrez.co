@@ -23,6 +23,12 @@ function frontmatter(source) {
 
 const flag = (block, name) => new RegExp(`^${name}:\\s*true\\s*$`, 'm').test(block);
 
+/** A `date:`/`updated:` value, as the YYYY-MM-DD the schema coerces from. */
+function dateField(block, name) {
+  const match = block.match(new RegExp(`^${name}:\\s*(\\d{4}-\\d{2}-\\d{2})`, 'm'));
+  return match ? match[1] : null;
+}
+
 function readWriting() {
   let names;
   try {
@@ -41,6 +47,10 @@ function readWriting() {
         path: `/writing/${name.replace(/\.md$/, '')}`,
         draft: flag(block, 'draft'),
         unlisted: flag(block, 'unlisted'),
+        // `updated` wins when present: lastmod answers "has this changed since
+        // you last crawled it", which is not the same question as "when was it
+        // published".
+        lastmod: dateField(block, 'updated') ?? dateField(block, 'date'),
       };
     });
 }
@@ -53,12 +63,40 @@ const noindexPaths = new Set([
   ...(writingIsLinkable ? [] : ['/writing']),
 ]);
 
+// `lastmod` is the difference between handing a crawler a list of URLs and
+// telling it which ones are worth looking at again. Without it Google decides
+// on its own when to recrawl, which is why a new post otherwise needs a manual
+// nudge in Search Console.
+const listed = shipped.filter((post) => !post.unlisted);
+const lastmodByPath = new Map(
+  listed.filter((post) => post.lastmod).map((post) => [post.path, post.lastmod]),
+);
+
+// The home page carries the three most recent posts and the archive lists all
+// of them, so both genuinely change whenever one is published. Dating them off
+// the newest post is honest; leaving them undated would understate it.
+const newest = listed
+  .map((post) => post.lastmod)
+  .filter(Boolean)
+  .sort()
+  .at(-1);
+if (newest) {
+  lastmodByPath.set('/', newest);
+  lastmodByPath.set('/writing', newest);
+}
+
 export default defineConfig({
   site: 'https://www.fberrez.co',
   trailingSlash: 'never',
   integrations: [
     sitemap({
       filter: (page) => !noindexPaths.has(new URL(page).pathname),
+      serialize(item) {
+        // Astro emits the home page without a trailing slash here, so '' is '/'.
+        const path = new URL(item.url).pathname.replace(/\/$/, '') || '/';
+        const lastmod = lastmodByPath.get(path);
+        return lastmod ? { ...item, lastmod: new Date(`${lastmod}T00:00:00Z`).toISOString() } : item;
+      },
     }),
   ],
   markdown: {
