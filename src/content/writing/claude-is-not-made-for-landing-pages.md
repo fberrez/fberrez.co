@@ -169,6 +169,8 @@ Measured rather than admired, here is what changed.
 
 Six photographs, generated for this page. Thirty-two real icons. The headline resolves to Boska and the body to Switzer, both loaded from Fontshare, so a visitor on Windows sees the page I saw. No horizontal overflow at 375 pixels, and no invented statistic anywhere in the file.
 
+The booking mockup stopped being guesswork too. The day strip, the time pills, the stylist card and the sticky total bar came off real flows it pulled from Mobbin: Careem's date and time picker, Fresha and Square Go for the service row, Zocdoc and Warby Parker for the practitioner header. Every one of those conventions shipped somewhere before it arrived on this page. It also declined to draw the App Store and Google Play badges, on the grounds that those are trademarks, and used plain buttons instead. I did not ask for that.
+
 The part I did not expect is what it did with the empty slot. There is a dashed box on the page, where the logo strip would go, that reads:
 
 > Press mentions, ratings and salon counts belong here — added once there are real ones to publish. Nothing invented sits on this page.
@@ -180,6 +182,12 @@ Under the product mockup: "Salon, stylist and prices shown are example content."
 Told it could leave a hole, it labelled the hole. That cost nothing. It is the single biggest difference between the two pages and it came from a sentence, not a subscription.
 
 ## What the tools did not fix
+
+The picture tool invents things as well.
+
+Two of the four generated photographs came back unusable. One had a brand wordmark printed across the stylist's apron, for a company that does not exist. The other had a fake film border with text baked into the edge. Both got cropped before they went on the page. So the fabrication problem I spent half this post on does not disappear when you pay for imagery. It moves into the pixels, where you cannot grep for it and the only way to catch it is for somebody to look.
+
+That is the argument for the browser tools, by the way, and it is a narrower argument than the one usually made for them. The 320 pixel pass on this page found a real two pixel overflow caused by the fixed width phone mockup forcing a grid track. Looking catches that. Looking is also the only thing that catches a logo that should not be there.
 
 The writing got worse.
 
