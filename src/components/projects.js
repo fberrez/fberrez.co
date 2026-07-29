@@ -12,7 +12,7 @@ export const PROJECTS = [
     desc: 'Ambient sound you arrange in space',
     state: 'live',
     stateLabel: 'Live',
-    version: 'macOS',
+    version: 'macOS + iOS',
     href: 'https://usefoyer.app',
     domain: 'usefoyer.app',
   },
