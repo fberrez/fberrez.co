@@ -196,7 +196,13 @@ const articleJsonLd = article && {
         <a class="mast-name" href="/">Florent Berrez</a>
         <nav aria-label="Sections">
           <a href="/" aria-current={section === 'index' ? 'page' : undefined}>Index</a>
-          {(hasPosts || section === 'writing') && (
+          {/*
+            The archive keeps its own tab even while it is empty, so visiting it
+            directly does not look broken. An unlisted post does not get one,
+            though: its reader arrived from a link handed to them, and pointing
+            them at an archive that says "nothing published yet" is a dead end.
+          */}
+          {(hasPosts || Astro.url.pathname === '/writing') && (
             <a href="/writing" aria-current={section === 'writing' ? 'page' : undefined}>
               Writing
             </a>

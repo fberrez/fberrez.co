@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { PROJECTS } from '../../components/projects.js';
-import { getPosts, isoDate, readingTime } from '../../lib/posts';
+import { getRoutablePosts, isoDate, readingTime } from '../../lib/posts';
 import { renderCard, type Card } from '../../lib/og';
 
 /* One card per page. The slug mirrors the page's own path — `/` becomes
@@ -8,7 +8,9 @@ import { renderCard, type Card } from '../../lib/og';
    image URL from the pathname and every future post gets a card for free. */
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
+  // Routable, not listed: an unlisted post is still shared by hand, and a link
+  // with no card is exactly what it should not look like.
+  const posts = await getRoutablePosts();
 
   const pages: { params: { slug: string }; props: { card: Card } }[] = [
     {

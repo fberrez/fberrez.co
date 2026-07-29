@@ -1,16 +1,20 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { getPosts, readingTime, isoDate } from '../../lib/posts';
+import { getPosts, getRoutablePosts, readingTime, isoDate } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
+  const posts = await getRoutablePosts();
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
 const mins = readingTime(post.body);
+
+// Same reasoning as the nav in Base.astro: only offer the archive when it has
+// something in it. An unlisted post can be the only thing that exists.
+const hasArchive = (await getPosts()).length > 0;
 ---
 
 <Base
@@ -18,6 +22,7 @@ const mins = readingTime(post.body);
   description={post.data.description}
   article={{ published: post.data.date, modified: post.data.updated }}
   section="writing"
+  noindex={post.data.unlisted}
 >
   <article>
     <div class="block" style="border-bottom:none;border-image:none;padding-bottom:0">
@@ -53,10 +58,25 @@ const mins = readingTime(post.body);
         </div>
 
         <footer class="art-foot">
-          <a href="/writing">← All writing</a>
+          {hasArchive ? <a href="/writing">← All writing</a> : <a href="/">← Index</a>}
           <span>Florent Berrez · Paris</span>
         </footer>
       </div>
     </div>
   </article>
+
+  {/*
+    Autoplaying demo videos are muted and looping, which browsers allow, but a
+    reader who asked for reduced motion should not have to watch them anyway.
+    `autoplay` cannot be conditioned server-side on a client preference, so the
+    videos are stopped on arrival instead and keep their controls.
+  */}
+  <script is:inline>
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (const video of document.querySelectorAll('.prose video[autoplay]')) {
+        video.autoplay = false;
+        video.pause();
+      }
+    }
+  </script>
 </Base>

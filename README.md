@@ -39,8 +39,28 @@ date: 2026-07-12
 topic: Tools, files   # optional, shown on the article's spec plate
 product: mambo        # optional
 draft: false          # drafts render in dev, never in a production build
+unlisted: false       # ships with a URL, but nothing links to it
 ---
 ```
+
+### `draft` vs `unlisted`
+
+Two different ways to hold a post back:
+
+| Flag             | Has a URL in production | Appears in archive / home / RSS / sitemap | Robots     |
+| ---------------- | ----------------------- | ----------------------------------------- | ---------- |
+| `draft: true`    | No, dev only            | No                                        | —          |
+| `unlisted: true` | **Yes**                 | No                                        | `noindex`  |
+| neither          | Yes                     | Yes                                       | `index`    |
+
+`unlisted` is for handing someone a link before the piece is meant to be found.
+The page and its social card build normally, so the link previews properly, but
+`getPosts()` filters it out and every listing on the site reads from that one
+function. Routes that need it anyway call `getRoutablePosts()`.
+
+The sitemap is decided in `astro.config.mjs`, which re-reads the frontmatter off
+disk because the integration is configured before the content collection is
+readable. If you add a third flag, it needs teaching there too.
 
 ## Getting started
 

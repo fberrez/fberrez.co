@@ -2,10 +2,27 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type Post = CollectionEntry<'writing'>;
 
-/** Published posts, newest first. Drafts ship only in dev. */
-export async function getPosts(): Promise<Post[]> {
+/**
+ * Every post that gets a URL, newest first. Drafts ship only in dev.
+ *
+ * This is what the routes build from — the article page and its social card —
+ * so an unlisted post is reachable. Use `getPosts()` for anything that *shows*
+ * a list to a reader.
+ */
+export async function getRoutablePosts(): Promise<Post[]> {
   const posts = await getCollection('writing', ({ data }) => import.meta.env.DEV || !data.draft);
   return posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+}
+
+/**
+ * Posts that are allowed to appear in a listing, newest first.
+ *
+ * Everything that advertises the writing reads this one — the archive, the home
+ * page, the feed, and the nav's decision to show a Writing tab at all — so a
+ * post marked `unlisted` drops out of all of them from this single line.
+ */
+export async function getPosts(): Promise<Post[]> {
+  return (await getRoutablePosts()).filter((post) => !post.data.unlisted);
 }
 
 /** Reading time in whole minutes, floored at 1. 200 wpm is the usual estimate. */

@@ -19,6 +19,13 @@ const writing = defineCollection({
     product: z.string().optional(),
     /** Draft posts build locally but never ship. */
     draft: z.boolean().default(false),
+    /**
+     * Unlisted posts ship and keep a working URL, but nothing points at it: no
+     * archive row, no home page row, no RSS item, no sitemap entry, and the
+     * page itself carries `noindex`. For handing a link to someone before the
+     * piece is meant to be found. A draft has no URL at all; this has one.
+     */
+    unlisted: z.boolean().default(false),
   }),
 });
 
