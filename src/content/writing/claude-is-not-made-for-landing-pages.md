@@ -25,7 +25,7 @@ Here is what came back.
   </video>
   <figcaption>
     First run. One sentence of prompt, no tools beyond a browser.
-    <a href="/writing/claude-landing-pages/v1">Open the page itself</a>, exactly as it was
+    <a href="/writing/claude-landing-pages/v1/">Open the page itself</a>, exactly as it was
     generated. Nothing in it has been edited, including the parts that are not true.
   </figcaption>
 </figure>
@@ -182,7 +182,7 @@ So I ran it again. Identical prompt, same model, with the stack wired in: Mobbin
   </video>
   <figcaption>
     Second run. Same sentence, plus tools that reach outside the model.
-    <a href="/writing/claude-landing-pages/v2">Open the page itself</a>. Both are served
+    <a href="/writing/claude-landing-pages/v2/">Open the page itself</a>. Both are served
     unedited and carry a noindex header, since one of them cites a customer who does not exist.
   </figcaption>
 </figure>

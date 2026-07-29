@@ -560,27 +560,36 @@ button:focus-visible {
   border-top: 1px solid var(--rule);
   font-family: var(--font-serif);
   font-size: 17.5px;
-  line-height: 1.72;
+  line-height: 1.76;
   max-width: 66ch;
   text-wrap: pretty;
 }
-.prose > * { margin: 0 0 1.15em; }
+.prose > * { margin: 0 0 1.45em; }
 .prose > *:last-child { margin-bottom: 0; }
+/* A section heading is a break in the argument, so it gets far more room above
+   it than below: the gap belongs to the section that just ended, and the title
+   should read as attached to the text it introduces.
+
+   In rem, not em. This heading is set at 10.5px, so an em here would be two
+   thirds of a body line and the "generous" margin would come out cramped. */
 .prose h2 {
   font-family: var(--font-mono);
   font-size: 10.5px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--acc);
-  margin: 2em 0 0.8em;
+  margin: 4rem 0 1.35rem;
   font-weight: 500;
 }
+.prose > h2:first-child { margin-top: 0; }
 .prose h3 {
   font-family: var(--font-serif);
   font-size: 1.15em;
   font-weight: 600;
-  margin: 1.8em 0 0.5em;
+  margin: 2.9rem 0 0.9rem;
 }
+/* A subhead straight after a section heading is one break, not two. */
+.prose h2 + h3 { margin-top: 1rem; }
 .prose a {
   color: var(--acc);
   text-decoration: none;
@@ -643,7 +652,7 @@ button:focus-visible {
    fill. The wrapper comes from the rehype plugin in astro.config.mjs. */
 .prose .table-scroll {
   overflow-x: auto;
-  margin: 1.6em 0;
+  margin: 2.1em 0;
   /* Focusable so the overflow is reachable without a trackpad gesture. */
   border-radius: 2px;
 }
@@ -685,7 +694,7 @@ button:focus-visible {
    two apart: the video sits on the same lit-glass surface as a code block, so
    it reads as a specimen on the page rather than part of it. */
 .prose figure {
-  margin: 1.9em 0;
+  margin: 2.5em 0;
 }
 .prose figure video {
   display: block;
