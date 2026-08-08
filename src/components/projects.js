@@ -7,6 +7,16 @@
 // year instead, so the column is never empty.
 export const PROJECTS = [
   {
+    id: 'towncenter',
+    name: 'towncenter',
+    desc: 'Prospect neighbourhood shops from a map',
+    state: 'live',
+    stateLabel: 'Live',
+    version: '—',
+    href: 'https://town-center.co',
+    domain: 'town-center.co',
+  },
+  {
     id: 'foyer',
     name: 'foyer',
     desc: 'Ambient sound you arrange in space',
