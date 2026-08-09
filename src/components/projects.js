@@ -12,7 +12,7 @@ export const PROJECTS = [
     desc: 'Prospect neighbourhood shops from a map',
     state: 'live',
     stateLabel: 'Live',
-    version: '—',
+    version: 'Web',
     href: 'https://town-center.co',
     domain: 'town-center.co',
   },
