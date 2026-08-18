@@ -16,11 +16,13 @@ interface Props {
   /** Set on article pages so search engines and social cards read them as posts. */
   article?: { published: Date; modified?: Date };
   /** Which nav item is current. */
-  section?: 'index' | 'writing';
+  section?: 'index' | 'writing' | 'utility';
   /** Keep a page out of the index — used for the archive while it is empty. */
   noindex?: boolean;
   /** Borrow another page's social card. Pages without one of their own set this. */
   ogSlug?: string;
+  /** Let sensitive utility pages opt out of the site's aggregate analytics. */
+  analytics?: boolean;
 }
 
 const DEFAULT_TITLE = 'Florent Berrez — makes small software and finishes it';
@@ -34,6 +36,7 @@ const {
   section = 'index',
   noindex = false,
   ogSlug: ogSlugOverride,
+  analytics = true,
 } = Astro.props;
 
 // Until there is something to read, the site does not advertise a blog: no
@@ -180,7 +183,7 @@ const articleJsonLd = article && {
       measured 168 ms lost to setting up its connection. Fonts and CSS are
       same-origin, so this is the one preconnect worth spending.
     */}
-    {UMAMI_WEBSITE_ID && (
+    {analytics && UMAMI_WEBSITE_ID && (
       <>
         <link rel="preconnect" href="https://umami.fberrez.co" crossorigin />
         <link rel="dns-prefetch" href="https://umami.fberrez.co" />

@@ -13,13 +13,14 @@ This is my personal website [fberrez.co](https://fberrez.co).
 
 ## Structure
 
-Three routes and a feed:
+Four routes and a feed:
 
 | Route              | What it is                                                |
 | ------------------ | --------------------------------------------------------- |
 | `/`                | Profile, the product table, the last three posts, contact  |
 | `/writing`         | Full archive, grouped by year once there is more than one  |
 | `/writing/<slug>`  | A post                                                     |
+| `/min-one/privacy` | Privacy policy for the min.one iOS app                     |
 | `/rss.xml`         | Feed                                                       |
 
 There is no `/about` — the home page opens with it — and no per-product pages,

@@ -1,0 +1,150 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const effectiveDate = new Date('2026-08-18T00:00:00Z');
+const formattedDate = new Intl.DateTimeFormat('en', {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(effectiveDate);
+---
+
+<Base
+  title="min.one Privacy Policy — Florent Berrez"
+  description="How min.one handles your daily priority and protects your privacy."
+  section="utility"
+  ogSlug="index"
+  analytics={false}
+>
+  <article>
+    <div class="block" style="border-bottom:none;border-image:none;padding-bottom:0">
+      <span class="block-label">min.one</span>
+      <div>
+        <h1 class="h1">Privacy policy</h1>
+        <p class="lede">
+          Your priority stays on your device. min.one has no account, backend, advertising,
+          tracking or analytics.
+        </p>
+      </div>
+    </div>
+
+    <div class="art">
+      <aside class="spec" aria-label="About this policy">
+        <div>
+          <span>Effective</span>
+          <b><time datetime="2026-08-18">{formattedDate}</time></b>
+        </div>
+        <div><span>Product</span><b>min.one for iOS</b></div>
+        <div><span>Operator</span><b>Florent Berrez</b></div>
+        <div><span>Location</span><b>France</b></div>
+      </aside>
+
+      <div>
+        <div class="prose">
+          <p>
+            This policy explains how the <strong>min.one</strong> iOS app handles information.
+            It applies to the app, its widgets, Live Activities, Dynamic Island surfaces and App
+            Intents.
+          </p>
+
+          <h2>Information handled by the app</h2>
+
+          <p>min.one processes a small amount of information that you provide or configure:</p>
+
+          <ul>
+            <li>the daily priority you type;</li>
+            <li>its creation and completion status and timestamps;</li>
+            <li>the local calendar day and time-zone identifier used for the daily reset;</li>
+            <li>your widget and Live Activity appearance preferences.</li>
+          </ul>
+
+          <p>
+            This information is stored locally in an iOS App Group shared only by min.one and its
+            widget extension. It is used to show your priority in the app and on the system surfaces
+            you enable, perform completion and Undo actions, and begin each new local day empty.
+          </p>
+
+          <h2>No collection, tracking or sharing</h2>
+
+          <p>
+            min.one does not transmit your priority or app usage to Florent Berrez or to third-party
+            servers. The app contains no account system, remote backend, advertising SDK, analytics
+            SDK or tracking technology. Your data is not sold, rented or shared for advertising or
+            profiling.
+          </p>
+
+          <p>
+            The app does not request access to your contacts, photos, precise location, microphone,
+            camera, health data or calendars.
+          </p>
+
+          <h2>Widgets and Live Activities</h2>
+
+          <p>
+            If you add a widget or enable Live Activities, your priority can appear on your Home
+            Screen, Lock Screen or Dynamic Island. These surfaces are managed by iOS and may be
+            visible to anyone who can see your device. You can remove widgets through iOS and disable
+            Live Activities from min.one Settings at any time.
+          </p>
+
+          <h2>Storage, retention and deletion</h2>
+
+          <p>
+            The current priority remains in local storage for its calendar day. When min.one
+            reconciles a new local day, the previous record is removed rather than carried forward.
+            Appearance preferences remain until you change them or remove the app.
+          </p>
+
+          <p>
+            You can clear the current priority by choosing <strong>Replace</strong> and leaving the
+            new entry empty, or delete the app to remove its local app container. Copies may remain
+            in device or iCloud backups according to your Apple backup settings and Apple's retention
+            practices. min.one cannot access or delete those backups for you.
+          </p>
+
+          <h2>Apple services</h2>
+
+          <p>
+            iOS, the App Store, iCloud, device backups and optional diagnostics are Apple services.
+            Apple may process information independently under its own
+            <a href="https://www.apple.com/legal/privacy/" rel="noopener noreferrer">Privacy Policy</a>.
+            min.one does not receive your priority through those services.
+          </p>
+
+          <h2>When you contact support</h2>
+
+          <p>
+            If you email support, Florent Berrez receives the address, message and any information
+            you choose to include. It is used only to answer your request, maintain necessary support
+            records and meet legal obligations. It is not used for advertising and is deleted when it
+            is no longer reasonably needed. Do not include your daily priority unless it is necessary
+            to explain the issue.
+          </p>
+
+          <h2>Your choices and rights</h2>
+
+          <p>
+            Because app content is not sent to a server, Florent Berrez cannot view, export or delete
+            it remotely. You control it directly on your device. For questions about this policy or a
+            request concerning a support email, contact
+            <!--email_off--><a href="mailto:hi@fberrez.co">hi@fberrez.co</a><!--email_on-->.
+          </p>
+
+          <h2>Changes to this policy</h2>
+
+          <p>
+            This page will be updated if min.one's data practices change. The effective date above
+            will change at the same time, and the app's App Store privacy disclosures will be updated
+            when required.
+          </p>
+        </div>
+
+        <footer class="art-foot">
+          <a href="/">← Index</a>
+          <span>Florent Berrez · France</span>
+        </footer>
+      </div>
+    </div>
+  </article>
+</Base>
