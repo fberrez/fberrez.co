@@ -1,96 +1,83 @@
 ---
 import Base from '../layouts/Base.astro';
 import { PROJECTS } from '../components/projects.js';
-import { getPosts, readingTime, isoDate } from '../lib/posts';
 
-// mambo ships via Tauri auto-update; this is the same manifest installed copies
-// read. Fetched at build time so the version tracks the live release instead of
-// drifting in projects.js.
-let mamboVersion = null;
-try {
-  const res = await fetch('https://downloads.trymambo.app/latest/latest.json');
-  if (res.ok) {
-    const data = await res.json();
-    if (data && typeof data.version === 'string') mamboVersion = data.version;
-  }
-} catch {
-  // Unreachable at build time; fall back to the version in projects.js.
-}
-
-const products = PROJECTS.map((p) => {
-  if (p.id !== 'mambo' || !mamboVersion) return p;
-  return { ...p, version: mamboVersion.startsWith('v') ? mamboVersion : `v${mamboVersion}` };
-});
-
-const posts = (await getPosts()).slice(0, 3);
+const wordmark = String.raw`   __ _
+  / _| |__   ___ _ __ _ __ ___ ____
+ | |_| '_ \ / _ \ '__| '__/ _ \_  /
+ |  _| |_) |  __/ |  | | |  __// /
+ |_| |_.__/ \___|_|  |_|  \___/___|`;
 ---
 
-<Base section="index">
-  <section class="block" aria-labelledby="profile">
-    <h2 class="block-label" id="profile">Profile</h2>
-    <div>
-      <p class="say">I make software that stays small on purpose.</p>
-      <p class="sub">
-        Desktop, iOS and the web, built for people who would rather own their files than rent an
-        account. No telemetry, no dashboards you did not ask for.
-      </p>
-    </div>
-  </section>
+<Base>
+  <div class="home">
+    <header class="intro" aria-labelledby="site-title">
+      <pre class="ascii-mark" aria-hidden="true">{wordmark}</pre>
+      <h1 class="vh" id="site-title">Florent Berrez</h1>
+      <p>software engineer in paris. i make small software and finish it.</p>
+      <p class="muted">native apps and web tools, built to stay useful and small.</p>
+    </header>
 
-  <section class="block" aria-labelledby="products">
-    <h2 class="block-label" id="products">Products</h2>
-    <div>
-      <div class="th" aria-hidden="true">
-        <span>No</span><span>Name</span><span>What it is</span>
-        <span>State</span><span class="t-ver">Version</span><span></span>
-      </div>
-      {products.map((p, i) => (
-        <a class="tr" href={p.href} target="_blank" rel="noopener noreferrer me">
-          <span class="t-no">{String(i + 1).padStart(2, '0')}</span>
-          <span class="t-name">{p.name}</span>
-          <span class="t-desc">{p.desc}</span>
-          <span class="t-state">
-            <span
-              class={
-                p.state === 'live' ? 'dot-live' : p.state === 'wip' ? 'dot-wip' : 'dot-off'
-              }>{p.stateLabel}</span>
-          </span>
-          <span class="t-ver">{p.version}</span>
-          <span class="arr" aria-hidden="true">↗</span>
-          <span class="vh">— opens {p.domain} in a new tab</span>
-        </a>
-      ))}
-    </div>
-  </section>
+    <section aria-labelledby="software-title">
+      <h2 class="section-title" id="software-title">software</h2>
+      <div class="project-list">
+        {PROJECTS.map((project, index) => {
+          const Row = project.href ? 'a' : 'div';
+          const linkProps = project.href
+            ? {
+                href: project.href,
+                target: '_blank',
+                rel: 'noopener noreferrer me',
+              }
+            : {};
 
-  {posts.length > 0 && (
-    <section class="block" aria-labelledby="writing">
-      <h2 class="block-label" id="writing">Writing</h2>
-      <div>
-        {posts.map((post) => (
-          <a class="wr" href={`/writing/${post.id}`}>
-            <span class="w-date">{isoDate(post.data.date)}</span>
-            <span class="w-title">{post.data.title}</span>
-            <span class="w-mins">{readingTime(post.body)} min</span>
-            <span class="arr" aria-hidden="true">→</span>
-          </a>
-        ))}
-        <a class="pill" href="/writing">
-          Everything <span aria-hidden="true">→</span>
-        </a>
+          return (
+            <Row
+              class:list={[
+                'project-row',
+                { 'project-row--archived': project.state === 'archived' },
+              ]}
+              {...linkProps}
+            >
+              <span class="project-number">{String(index + 1).padStart(2, '0')}</span>
+              <span class="project-name">{project.name}</span>
+              <span class="project-description">{project.desc}</span>
+              <span class={`project-status project-status--${project.state}`}>
+                {project.stateLabel.toLowerCase()}
+              </span>
+              <span class="project-version">{project.version.toLowerCase()}</span>
+              <span class="project-arrow" aria-hidden="true">
+                {project.href ? '↗' : '·'}
+              </span>
+              <span class="vh">
+                {project.href ? `opens ${project.domain} in a new tab` : 'archived project'}
+              </span>
+            </Row>
+          );
+        })}
       </div>
     </section>
-  )}
 
-  <section class="block" aria-labelledby="elsewhere">
-    <h2 class="block-label" id="elsewhere">Elsewhere</h2>
-    <div class="links">
-      <!--email_off--><a href="mailto:hi@fberrez.co">hi@fberrez.co</a><!--email_on-->
-      <a href="https://github.com/fberrez" rel="me noopener noreferrer" target="_blank">GitHub</a>
-      <a href="https://bsky.app/profile/fberrez.co" rel="me noopener noreferrer" target="_blank">
-        Bluesky
-      </a>
-      {posts.length > 0 && <a href="/rss.xml">RSS</a>}
-    </div>
-  </section>
+    <section class="elsewhere" aria-labelledby="elsewhere-title">
+      <h2 class="section-title" id="elsewhere-title">elsewhere</h2>
+      <nav class="links" aria-label="Elsewhere">
+        <!--email_off--><a href="mailto:hi@fberrez.co">email</a><!--email_on-->
+        <a href="https://github.com/fberrez" rel="me noopener noreferrer" target="_blank">
+          github
+        </a>
+        <a
+          href="https://bsky.app/profile/fberrez.co"
+          rel="me noopener noreferrer"
+          target="_blank"
+        >
+          bluesky
+        </a>
+      </nav>
+    </section>
+
+    <footer class="site-footer">
+      <span>paris, france</span>
+      <span>© {new Date().getFullYear()} florent berrez</span>
+    </footer>
+  </div>
 </Base>

@@ -11,7 +11,7 @@
 - **Email:** hi@fberrez.co
 - **GitHub:** https://github.com/fberrez
 - **Company:** mambo-corp (https://github.com/mambo-corp)
-- **Philosophy:** Ships a lot of small things rather than one big thing.
+- **Philosophy:** Makes small software and finishes it.
 
 ## Currently shipping
 
@@ -19,14 +19,11 @@
 - [minihabits](https://minihabits.co): A minimalist habit tracking app. One screen, tap, done. Habits built on momentum, not streaks. No onboarding, no settings, no notifications. iOS.
 - [mambo](https://trymambo.app): Keyboard-driven desktop database client for macOS and Linux. Connects to PostgreSQL, MySQL/MariaDB, MongoDB, Redis, SQLite, ClickHouse, DuckDB, Elasticsearch, and Cassandra. Flagship project. Built with Tauri 2 + React + TypeScript.
 - [quietdash.com](https://quietdash.com): A quiet dashboard. Numbers that matter, nothing that doesn't. Single-screen metrics view. In progress.
-- [blurt.sh](https://blurt.sh): The simplest way to publish on the web. Push markdown, send an email, or just write. Your blog is live. Zero-config. In progress.
 
-## Writing
+## Archived
 
-Notes on shipping small software, roughly one a month: what broke, what would not get built again, and why things end up smaller than planned.
-
-- Archive: https://www.fberrez.co/writing
-- Feed: https://www.fberrez.co/rss.xml
+- towncenter: Prospect neighbourhood shops from a map.
+- blurt.sh: Markdown in, posts everywhere.
 
 ## Stack
 

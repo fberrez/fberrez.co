@@ -4,20 +4,19 @@ import { html } from 'satori-html';
 
 /* Social cards, one per page, rendered at build time.
 
-   Satori cannot do backdrop-filter or oklch, so a card states the design
-   rather than imitating it: lit paper, a labelled gutter, ink, one cobalt
-   mark. Same two typefaces as the site. */
+   Satori cannot do oklch, so the card uses the same near-black, off-white and
+   green palette as the site with plain hex fallbacks. */
 
 export const OG_WIDTH = 1200;
 export const OG_HEIGHT = 630;
 
-const PAPER = '#fbfbfc';
-const PAPER_EDGE = '#eceef1';
-const INK = '#0e1116';
-const MID = '#5b626d';
-const GHOST = '#a8aeb8';
-const RULE = '#dfe2e7';
-const ACC = '#1d4ed8';
+const PAPER = '#101310';
+const PAPER_EDGE = '#151a15';
+const INK = '#e9eee9';
+const MID = '#a5aea5';
+const GHOST = '#687268';
+const RULE = '#303830';
+const ACC = '#54d66b';
 
 // Satori needs ttf/otf — it does not read woff2, which is what @fontsource
 // ships. Google Fonts hands over truetype when asked without a modern UA.
@@ -37,13 +36,9 @@ function getFonts() {
     fontsPromise = Promise.all([
       loadGoogleFont('IBM+Plex+Mono:wght@400'),
       loadGoogleFont('IBM+Plex+Mono:wght@500'),
-      loadGoogleFont('Source+Serif+4:wght@400'),
-      loadGoogleFont('Source+Serif+4:ital,wght@1,400'),
-    ]).then(([mono, monoMedium, serif, serifItalic]) => [
+    ]).then(([mono, monoMedium]) => [
       { name: 'mono', data: mono, weight: 400, style: 'normal' },
       { name: 'mono', data: monoMedium, weight: 500, style: 'normal' },
-      { name: 'serif', data: serif, weight: 400, style: 'normal' },
-      { name: 'serif', data: serifItalic, weight: 400, style: 'italic' },
     ]);
   }
   return fontsPromise;
@@ -76,7 +71,8 @@ const titleBlock = (title: string, sub?: string) => {
     <div style="display: flex; flex-direction: column; width: 900px;">
       <span style="
         display: flex;
-        font-family: serif;
+        font-family: mono;
+        font-weight: 500;
         font-size: ${size}px;
         line-height: 1.18;
         letter-spacing: -1.4px;
@@ -87,8 +83,7 @@ const titleBlock = (title: string, sub?: string) => {
           ? `<span style="
                display: flex;
                margin-top: 22px;
-               font-family: serif;
-               font-style: italic;
+               font-family: mono;
                font-size: 26px;
                line-height: 1.4;
                color: ${MID};
@@ -136,7 +131,7 @@ const shell = (inner: string) => `
   ">${inner}</div>`;
 
 export interface Card {
-  /** Left-gutter label, e.g. PROFILE or WRITING. */
+  /** Left-gutter label, e.g. PROFILE. */
   label: string;
   title: string;
   /** One line under the title. This is what makes a shared link readable. */
@@ -166,8 +161,7 @@ function markup(card: Card): string {
           ">${esc(left)}</span>
           <span style="
             display: flex;
-            font-family: serif;
-            font-style: italic;
+            font-family: mono;
             font-size: 21px;
             color: ${MID};
           ">${esc(right)}</span>

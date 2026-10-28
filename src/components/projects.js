@@ -1,21 +1,6 @@
-// The product table on the home page. Order is the order they get read in:
-// shipping things first, then what is being built, then what was retired.
-//
-// `state` drives both the word and its mark — 'live' gets a filled square,
-// 'wip' a hollow one, 'archived' neither. `version` is the right-hand column;
-// for products that do not version publicly it carries the platform or the
-// year instead, so the column is never empty.
+// The product table on the home page. Live products come first, followed by
+// active work. State drives the coloured mark beside each label.
 export const PROJECTS = [
-  {
-    id: 'towncenter',
-    name: 'towncenter',
-    desc: 'Prospect neighbourhood shops from a map',
-    state: 'live',
-    stateLabel: 'Live',
-    version: 'Web',
-    href: 'https://town-center.co',
-    domain: 'town-center.co',
-  },
   {
     id: 'foyer',
     name: 'foyer',
@@ -57,13 +42,23 @@ export const PROJECTS = [
     domain: 'quietdash.com',
   },
   {
+    id: 'towncenter',
+    name: 'towncenter',
+    desc: 'Prospect neighbourhood shops from a map',
+    state: 'archived',
+    stateLabel: 'Archived',
+    version: 'Web',
+    href: null,
+    domain: 'town-center.co',
+  },
+  {
     id: 'blurt',
     name: 'blurt.sh',
     desc: 'Markdown in, posts everywhere',
-    state: 'wip',
-    stateLabel: 'Building',
-    version: '—',
-    href: 'https://blurt.sh',
+    state: 'archived',
+    stateLabel: 'Archived',
+    version: 'Web',
+    href: null,
     domain: 'blurt.sh',
   },
 ];
