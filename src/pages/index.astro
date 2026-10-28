@@ -20,57 +20,40 @@ const wordmark = String.raw`   __ _
 
     <section aria-labelledby="software-title">
       <h2 class="section-title" id="software-title">software</h2>
-      <div class="project-list">
-        {PROJECTS.map((project, index) => {
-          const Row = project.href ? 'a' : 'div';
-          const linkProps = project.href
-            ? {
-                href: project.href,
-                target: '_blank',
-                rel: 'noopener noreferrer me',
-              }
-            : {};
-
-          return (
-            <Row
-              class:list={[
-                'project-row',
-                { 'project-row--archived': project.state === 'archived' },
-              ]}
-              {...linkProps}
-            >
-              <span class="project-number">{String(index + 1).padStart(2, '0')}</span>
-              <span class="project-name">{project.name}</span>
-              <span class="project-description">{project.desc}</span>
-              <span class={`project-status project-status--${project.state}`}>
-                {project.stateLabel.toLowerCase()}
-              </span>
-              <span class="project-version">{project.version.toLowerCase()}</span>
-              <span class="project-arrow" aria-hidden="true">
-                {project.href ? '↗' : '·'}
-              </span>
-              <span class="vh">
-                {project.href ? `opens ${project.domain} in a new tab` : 'archived project'}
-              </span>
-            </Row>
-          );
-        })}
-      </div>
+      <ul class="text-list software-list">
+        {PROJECTS.map((project) => (
+          <li class:list={[`project-item--${project.state}`]}>
+            {project.href ? (
+              <a href={project.href} target="_blank" rel="noopener noreferrer me">
+                {project.name}:
+                <span class="vh"> opens {project.domain} in a new tab</span>
+              </a>
+            ) : (
+              <span class="archived-name">{project.name}:</span>
+            )}
+            <span class="project-copy"> {project.desc.toLowerCase()}</span>
+            <span class="project-meta">
+              {' '}({project.stateLabel.toLowerCase()}{project.version !== '—' ? `, ${project.version.toLowerCase()}` : ''})
+            </span>
+          </li>
+        ))}
+      </ul>
     </section>
 
     <section class="elsewhere" aria-labelledby="elsewhere-title">
       <h2 class="section-title" id="elsewhere-title">elsewhere</h2>
-      <nav class="links" aria-label="Elsewhere">
-        <!--email_off--><a href="mailto:hi@fberrez.co">email</a><!--email_on-->
-        <a href="https://github.com/fberrez" rel="me noopener noreferrer" target="_blank">
-          github
-        </a>
+      <nav aria-label="Elsewhere">
+        <ul class="text-list link-list">
+          <li><!--email_off--><a href="mailto:hi@fberrez.co">email</a><!--email_on--></li>
+          <li>
+            <a href="https://github.com/fberrez" rel="me noopener noreferrer" target="_blank">
+              github
+            </a>
+          </li>
+        </ul>
       </nav>
     </section>
 
-    <footer class="site-footer">
-      <span>paris, france</span>
-      <span>© {new Date().getFullYear()} florent berrez</span>
-    </footer>
+    <footer class="site-footer">paris, france. © {new Date().getFullYear()} florent berrez.</footer>
   </div>
 </Base>

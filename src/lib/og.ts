@@ -15,7 +15,6 @@ const PAPER_EDGE = '#151a15';
 const INK = '#e9eee9';
 const MID = '#a5aea5';
 const GHOST = '#687268';
-const RULE = '#303830';
 const ACC = '#54d66b';
 
 // Satori needs ttf/otf — it does not read woff2, which is what @fontsource
@@ -96,7 +95,7 @@ const titleBlock = (title: string, sub?: string) => {
 const footer = (right: string) => `
   <div style="display: flex; align-items: center;">
     <span style="display: flex; width: 168px;"></span>
-    <span style="display: flex; width: 10px; height: 10px; background: ${ACC};"></span>
+    <span style="display: flex; color: ${ACC}; font-size: 24px;">•</span>
     <span style="
       display: flex;
       margin-left: 14px;
@@ -136,7 +135,7 @@ export interface Card {
   title: string;
   /** One line under the title. This is what makes a shared link readable. */
   sub?: string;
-  /** Optional rows under the title: [left, right] pairs. */
+  /** Optional bullet items under the title: [name, description] pairs. */
   rows?: [string, string][];
   /** Right-hand footer text, e.g. PARIS, FR or a date. */
   footerRight?: string;
@@ -145,32 +144,29 @@ export interface Card {
 function markup(card: Card): string {
   const rows = (card.rows ?? [])
     .map(
-      ([left, right], i) => `
+      ([left, right]) => `
         <div style="
           display: flex;
           align-items: center;
-          padding: 13px 0;
-          ${i === 0 ? '' : `border-top: 1px solid ${RULE};`}
+          padding: 8px 0;
         ">
           <span style="
             display: flex;
-            width: 260px;
+            margin-right: 14px;
             font-size: 22px;
-            font-weight: 500;
-            color: ${INK};
-          ">${esc(left)}</span>
+            color: ${ACC};
+          ">•</span>
           <span style="
             display: flex;
             font-family: mono;
             font-size: 21px;
             color: ${MID};
-          ">${esc(right)}</span>
+          ">${esc(`${left}: ${right}`)}</span>
         </div>`,
     )
     .join('');
 
-  // Without a table under it, the title would sit alone at the top with a void
-  // beneath — so it takes the free space and centres instead.
+  // Without a list under it, the title takes the free space and centres.
   const headAlign = rows ? 'align-items: flex-start;' : 'flex: 1; align-items: center;';
 
   return shell(`

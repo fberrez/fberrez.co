@@ -3,11 +3,9 @@
 :root {
   color-scheme: dark;
   --canvas: oklch(0.13 0.008 145);
-  --raised: oklch(0.165 0.012 145);
   --ink: oklch(0.93 0.008 145);
   --muted: oklch(0.69 0.012 145);
   --faint: oklch(0.5 0.012 145);
-  --rule: oklch(0.275 0.013 145);
   --signal: oklch(0.79 0.19 145);
   --building: oklch(0.8 0.14 83);
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -102,131 +100,66 @@ a:focus-visible {
   letter-spacing: -0.025em;
 }
 
-.project-list {
-  border-top: 1px solid var(--rule);
+.text-list {
+  max-width: 75ch;
+  margin: 0;
+  padding-left: 1.4em;
 }
 
-.project-row {
-  display: grid;
-  grid-template-columns: 42px minmax(120px, 0.8fr) minmax(260px, 1.8fr) 88px 116px 22px;
-  gap: 18px;
-  align-items: baseline;
-  min-height: 64px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--rule);
-  color: inherit;
-  transition: color 160ms ease-out, background-color 160ms ease-out;
+.text-list li {
+  padding: 0.24rem 0;
 }
 
-.project-row:hover {
-  background: var(--raised);
+.text-list li::marker {
   color: var(--signal);
 }
 
-.project-number,
-.project-version {
-  color: var(--faint);
-  font-size: 13px;
+.software-list li + li {
+  margin-top: 0.35rem;
 }
 
-.project-name {
-  color: var(--signal);
-  font-weight: 500;
-}
-
-.project-description {
+.project-copy {
   color: var(--muted);
 }
 
-.project-status {
+.project-meta {
+  color: var(--faint);
   font-size: 13px;
 }
 
-.project-status::before {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin: 0 8px 1px 0;
-  border-radius: 50%;
-  background: currentColor;
-  content: '';
-}
-
-.project-status--live {
-  color: var(--signal);
-}
-
-.project-status--wip {
+.text-list .project-item--wip::marker,
+.project-item--wip .project-meta {
   color: var(--building);
 }
 
-.project-status--archived {
-  color: var(--faint);
-}
-
-.project-status--archived::before {
-  background: transparent;
-  border: 1px solid currentColor;
-}
-
-.project-arrow {
-  color: var(--faint);
-  text-align: right;
-}
-
-.project-row:hover .project-number,
-.project-row:hover .project-description,
-.project-row:hover .project-version,
-.project-row:hover .project-arrow {
-  color: inherit;
-}
-
-.project-row--archived,
-.project-row--archived:hover {
-  background: transparent;
-  color: var(--faint);
-}
-
-.project-row--archived .project-name,
-.project-row--archived .project-description {
+.text-list .project-item--archived::marker,
+.project-item--archived .archived-name,
+.project-item--archived .project-copy,
+.project-item--archived .project-meta {
   color: var(--faint);
 }
 
 .elsewhere {
-  display: grid;
-  grid-template-columns: minmax(130px, 0.32fr) 1fr;
-  gap: 18px;
   margin-top: clamp(58px, 9vw, 104px);
 }
 
 .elsewhere .section-title {
-  margin: 0;
+  margin-bottom: 12px;
 }
 
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 30px;
-}
-
-.links a {
+.link-list a {
   color: var(--signal);
   text-decoration: underline;
   text-decoration-color: color-mix(in oklch, var(--signal) 42%, transparent);
   text-underline-offset: 4px;
 }
 
-.links a:hover {
+.link-list a:hover {
   text-decoration-color: currentColor;
 }
 
 .site-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
   margin-top: clamp(78px, 12vw, 140px);
-  padding-top: 20px;
-  border-top: 1px solid var(--rule);
   color: var(--faint);
   font-size: 12px;
 }
@@ -237,7 +170,6 @@ a:focus-visible {
   grid-template-columns: 145px minmax(0, 1fr);
   gap: 30px;
   padding: 22px 0 28px;
-  border-bottom: 1px solid var(--rule);
 }
 
 .block-label,
@@ -334,8 +266,6 @@ a:focus-visible {
 .prose pre {
   overflow-x: auto;
   padding: 16px;
-  border: 1px solid var(--rule);
-  background: var(--raised);
   color: var(--ink);
   font: inherit;
   font-size: 13px;
@@ -351,8 +281,6 @@ a:focus-visible {
   gap: 20px;
   max-width: 72ch;
   margin-top: 56px;
-  padding-top: 18px;
-  border-top: 1px solid var(--rule);
   color: var(--faint);
   font-size: 12px;
 }
@@ -360,30 +288,6 @@ a:focus-visible {
 .empty {
   margin: 0;
   color: var(--muted);
-}
-
-.year,
-.wr {
-  display: grid;
-  grid-template-columns: 145px minmax(0, 1fr);
-  gap: 30px;
-}
-
-.wr {
-  grid-template-columns: 100px minmax(0, 1fr) 60px 20px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-@media (max-width: 820px) {
-  .project-row {
-    grid-template-columns: 34px minmax(110px, 0.7fr) minmax(200px, 1.3fr) 82px 22px;
-    gap: 12px;
-  }
-
-  .project-version {
-    display: none;
-  }
 }
 
 @media (max-width: 600px) {
@@ -400,44 +304,12 @@ a:focus-visible {
     margin-bottom: 24px;
   }
 
-  .project-row {
-    grid-template-columns: 30px 1fr auto 18px;
-    gap: 8px 12px;
-    padding: 16px 0;
-  }
-
-  .project-name {
-    grid-column: 2;
-  }
-
-  .project-status {
-    grid-column: 3;
-    grid-row: 1;
-  }
-
-  .project-arrow {
-    grid-column: 4;
-    grid-row: 1;
-  }
-
-  .project-description {
-    grid-column: 2 / -1;
-    grid-row: 2;
-    font-size: 13px;
-  }
-
-  .project-version {
-    display: none;
-  }
-
-  .elsewhere,
   .block,
   .art {
     grid-template-columns: 1fr;
     gap: 14px;
   }
 
-  .site-footer,
   .art-foot {
     flex-direction: column;
     gap: 4px;
@@ -447,7 +319,6 @@ a:focus-visible {
     position: static;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding-bottom: 24px;
-    border-bottom: 1px solid var(--rule);
   }
 }
 

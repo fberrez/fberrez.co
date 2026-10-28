@@ -21,8 +21,8 @@ const PAPER_EDGE = '#151a15';
 const INK = '#e9eee9';
 const ACC = '#54d66b';
 
-// The mark is the filled green square the site uses for "shipping", set beside
-// the initial — the one glyph that carries meaning on every page.
+// A text-only mark: the initial followed by the same green bullet used by the
+// project list.
 const faviconMarkup = html(`
   <div style="
     width: 256px;
@@ -43,12 +43,14 @@ const faviconMarkup = html(`
       ">f</span>
       <span style="
         display: flex;
-        width: 30px;
-        height: 30px;
-        background: ${ACC};
-        margin-left: 10px;
-        margin-bottom: 26px;
-      "></span>
+        margin-left: 4px;
+        margin-bottom: 9px;
+        font-family: mono;
+        font-weight: 500;
+        font-size: 72px;
+        line-height: 1;
+        color: ${ACC};
+      ">•</span>
     </div>
   </div>
 `);
