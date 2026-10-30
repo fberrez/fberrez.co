@@ -3,7 +3,7 @@
   --canvas: oklch(0.13 0.008 145);
   --ink: oklch(0.93 0.008 145);
   --muted: oklch(0.69 0.012 145);
-  --faint: oklch(0.5 0.012 145);
+  --faint: oklch(0.62 0.012 145);
   --signal: oklch(0.79 0.19 145);
   --building: oklch(0.8 0.14 83);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;

@@ -32,6 +32,16 @@
   letter-spacing: -0.025em;
 }
 
+.software-list a {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--signal) 42%, transparent);
+  text-underline-offset: 4px;
+}
+
+.software-list a:hover {
+  text-decoration-color: currentColor;
+}
+
 .software-list li + li {
   margin-top: 0.35rem;
 }
