@@ -2,6 +2,9 @@
 
 Personal site for [Florent Berrez](https://fberrez.co), built with Astro and served by nginx on Railway.
 
+Astro is build tooling only. The browser receives static HTML with inline CSS,
+system fonts, an inline favicon, and no JavaScript or third-party requests.
+
 ## Routes
 
 | Route | Purpose |
@@ -24,7 +27,6 @@ The build generates the favicon, social card, static pages, and sitemap in `dist
 
 | Variable | Purpose |
 | --- | --- |
-| `PUBLIC_UMAMI_WEBSITE_ID` | Self-hosted Umami analytics site ID |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console verification token |
 
 Railway watches `main`, builds the Docker image, and serves `dist/` through nginx.

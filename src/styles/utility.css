@@ -1,0 +1,120 @@
+.block {
+  display: grid;
+  grid-template-columns: 145px minmax(0, 1fr);
+  gap: 30px;
+  padding: 22px 0 28px;
+}
+
+.block-label,
+.spec span {
+  color: var(--faint);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+}
+
+.say,
+.h1 {
+  max-width: 30ch;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.sub,
+.lede {
+  max-width: 65ch;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.art {
+  display: grid;
+  grid-template-columns: 145px minmax(0, 1fr);
+  gap: 30px;
+  padding-top: 30px;
+}
+
+.spec {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  display: grid;
+  gap: 16px;
+}
+
+.spec span,
+.spec b {
+  display: block;
+}
+
+.spec b {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.prose {
+  max-width: 72ch;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.78;
+}
+
+.prose > * {
+  margin: 0 0 1.35em;
+}
+
+.prose h2 {
+  margin: 3.5rem 0 1rem;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.prose a,
+.art-foot a {
+  color: var(--signal);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.3em;
+}
+
+.art-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 72ch;
+  margin-top: 56px;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .block,
+  .art {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .art-foot {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .spec {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-bottom: 24px;
+  }
+}

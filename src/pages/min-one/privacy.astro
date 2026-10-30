@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import '../../styles/utility.css';
 
 const effectiveDate = new Date('2026-08-18T00:00:00Z');
 const formattedDate = new Intl.DateTimeFormat('en', {
@@ -14,7 +15,6 @@ const formattedDate = new Intl.DateTimeFormat('en', {
   title="min.one Privacy Policy — Florent Berrez"
   description="How min.one handles your daily priority and protects your privacy."
   ogSlug="index"
-  analytics={false}
 >
   <article>
     <div class="block" style="padding-bottom:0">

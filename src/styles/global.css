@@ -1,5 +1,3 @@
-@import './fonts.css';
-
 :root {
   color-scheme: dark;
   --canvas: oklch(0.13 0.008 145);
@@ -8,7 +6,7 @@
   --faint: oklch(0.5 0.012 145);
   --signal: oklch(0.79 0.19 145);
   --building: oklch(0.8 0.14 83);
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 * {
@@ -66,40 +64,6 @@ a:focus-visible {
   border: 0;
 }
 
-.intro {
-  max-width: 78ch;
-  margin-bottom: clamp(58px, 9vw, 104px);
-}
-
-.ascii-mark {
-  margin: 0 0 28px;
-  overflow: hidden;
-  color: var(--ink);
-  font: inherit;
-  font-size: clamp(10px, 1.45vw, 17px);
-  font-weight: 500;
-  line-height: 1.12;
-  letter-spacing: -0.04em;
-  white-space: pre;
-}
-
-.intro p {
-  margin: 0;
-  font-size: clamp(15px, 1.55vw, 18px);
-}
-
-.intro .muted {
-  margin-top: 8px;
-  color: var(--muted);
-}
-
-.section-title {
-  margin: 0 0 18px;
-  font-size: 19px;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-}
-
 .text-list {
   max-width: 75ch;
   margin: 0;
@@ -114,39 +78,6 @@ a:focus-visible {
   color: var(--signal);
 }
 
-.software-list li + li {
-  margin-top: 0.35rem;
-}
-
-.project-copy {
-  color: var(--muted);
-}
-
-.project-meta {
-  color: var(--faint);
-  font-size: 13px;
-}
-
-.text-list .project-item--wip::marker,
-.project-item--wip .project-meta {
-  color: var(--building);
-}
-
-.text-list .project-item--archived::marker,
-.project-item--archived .archived-name,
-.project-item--archived .project-copy,
-.project-item--archived .project-meta {
-  color: var(--faint);
-}
-
-.elsewhere {
-  margin-top: clamp(58px, 9vw, 104px);
-}
-
-.elsewhere .section-title {
-  margin-bottom: 12px;
-}
-
 .link-list a {
   color: var(--signal);
   text-decoration: underline;
@@ -158,167 +89,10 @@ a:focus-visible {
   text-decoration-color: currentColor;
 }
 
-.site-footer {
-  margin-top: clamp(78px, 12vw, 140px);
-  color: var(--faint);
-  font-size: 12px;
-}
-
-/* Utility pages */
-.block {
-  display: grid;
-  grid-template-columns: 145px minmax(0, 1fr);
-  gap: 30px;
-  padding: 22px 0 28px;
-}
-
-.block-label,
-.spec span {
-  color: var(--faint);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
-}
-
-.say,
-.h1 {
-  max-width: 30ch;
-  margin: 0;
-  color: var(--ink);
-  font-size: clamp(24px, 4vw, 38px);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-}
-
-.sub,
-.lede {
-  max-width: 65ch;
-  margin: 14px 0 0;
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-.art {
-  display: grid;
-  grid-template-columns: 145px minmax(0, 1fr);
-  gap: 30px;
-  padding-top: 30px;
-}
-
-.spec {
-  position: sticky;
-  top: 24px;
-  align-self: start;
-  display: grid;
-  gap: 16px;
-}
-
-.spec span,
-.spec b {
-  display: block;
-}
-
-.spec b {
-  margin-top: 2px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 400;
-}
-
-.prose {
-  max-width: 72ch;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.78;
-}
-
-.prose > * {
-  margin: 0 0 1.35em;
-}
-
-.prose h2 {
-  margin: 3.5rem 0 1rem;
-  color: var(--ink);
-  font-size: 17px;
-  font-weight: 500;
-}
-
-.prose a,
-.art-foot a {
-  color: var(--signal);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.prose ul,
-.prose ol {
-  padding-left: 1.3em;
-}
-
-.prose img,
-.prose video {
-  max-width: 100%;
-  height: auto;
-}
-
-.prose pre {
-  overflow-x: auto;
-  padding: 16px;
-  color: var(--ink);
-  font: inherit;
-  font-size: 13px;
-}
-
-.prose code {
-  color: var(--ink);
-}
-
-.art-foot {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  max-width: 72ch;
-  margin-top: 56px;
-  color: var(--faint);
-  font-size: 12px;
-}
-
-.empty {
-  margin: 0;
-  color: var(--muted);
-}
-
 @media (max-width: 600px) {
   .page {
     width: min(100% - 32px, 1180px);
     padding-top: 28px;
-  }
-
-  .intro {
-    margin-bottom: 56px;
-  }
-
-  .ascii-mark {
-    margin-bottom: 24px;
-  }
-
-  .block,
-  .art {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .art-foot {
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .spec {
-    position: static;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding-bottom: 24px;
   }
 }
 

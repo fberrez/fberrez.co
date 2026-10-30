@@ -2,7 +2,6 @@
 import '../styles/global.css';
 
 const SITE_URL = 'https://www.fberrez.co';
-const UMAMI_WEBSITE_ID = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
 const GOOGLE_SITE_VERIFICATION = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 interface Props {
@@ -10,7 +9,6 @@ interface Props {
   description?: string;
   noindex?: boolean;
   ogSlug?: string;
-  analytics?: boolean;
 }
 
 const DEFAULT_TITLE = 'Florent Berrez — software engineer';
@@ -22,7 +20,6 @@ const {
   description = DEFAULT_DESCRIPTION,
   noindex = false,
   ogSlug: ogSlugOverride,
-  analytics = true,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
@@ -78,8 +75,11 @@ const websiteJsonLd = {
     <meta name="author" content="Florent Berrez" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23101310'/%3E%3Ctext x='16' y='47' fill='%23e9eee9' font-family='monospace' font-size='44'%3Ef%3C/text%3E%3Ccircle cx='47' cy='43' r='5' fill='%2354d66b'/%3E%3C/svg%3E"
+    />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta
       name="robots"
@@ -108,13 +108,6 @@ const websiteJsonLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
-    {analytics && UMAMI_WEBSITE_ID && (
-      <>
-        <link rel="preconnect" href="https://umami.fberrez.co" crossorigin />
-        <link rel="dns-prefetch" href="https://umami.fberrez.co" />
-        <script defer src="https://umami.fberrez.co/script.js" data-website-id={UMAMI_WEBSITE_ID} />
-      </>
-    )}
   </head>
   <body>
     <div class="page">

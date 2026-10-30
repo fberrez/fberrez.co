@@ -1,0 +1,82 @@
+.intro {
+  max-width: 78ch;
+  margin-bottom: clamp(58px, 9vw, 104px);
+}
+
+.ascii-mark {
+  margin: 0 0 28px;
+  overflow: hidden;
+  color: var(--ink);
+  font: inherit;
+  font-size: clamp(10px, 1.45vw, 17px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  white-space: pre;
+}
+
+.intro p {
+  margin: 0;
+  font-size: clamp(15px, 1.55vw, 18px);
+}
+
+.intro .muted {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.section-title {
+  margin: 0 0 18px;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.software-list li + li {
+  margin-top: 0.35rem;
+}
+
+.project-copy {
+  color: var(--muted);
+}
+
+.project-meta {
+  color: var(--faint);
+  font-size: 13px;
+}
+
+.text-list .project-item--wip::marker,
+.project-item--wip .project-meta {
+  color: var(--building);
+}
+
+.text-list .project-item--archived::marker,
+.project-item--archived .archived-name,
+.project-item--archived .project-copy,
+.project-item--archived .project-meta {
+  color: var(--faint);
+}
+
+.elsewhere {
+  margin-top: clamp(58px, 9vw, 104px);
+}
+
+.elsewhere .section-title {
+  margin-bottom: 12px;
+}
+
+.site-footer {
+  margin-top: clamp(78px, 12vw, 140px);
+  color: var(--faint);
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .intro {
+    margin-bottom: 56px;
+  }
+
+  .ascii-mark {
+    margin-bottom: 24px;
+  }
+}

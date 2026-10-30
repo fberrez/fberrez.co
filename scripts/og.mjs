@@ -14,7 +14,7 @@ import { html } from 'satori-html';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
-const FAVICON_OUT = resolve(ROOT, 'public/favicon.png');
+const FAVICON_OUT = resolve(ROOT, 'public/apple-touch-icon.png');
 
 const PAPER = '#101310';
 const PAPER_EDGE = '#151a15';

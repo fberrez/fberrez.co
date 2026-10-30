@@ -6,7 +6,7 @@ export default defineConfig({
   trailingSlash: 'never',
   integrations: [sitemap()],
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
   vite: {
     server: { fs: { strict: false } },
