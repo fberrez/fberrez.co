@@ -2,23 +2,12 @@ import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import { html } from 'satori-html';
 
-/* Social cards, one per page, rendered at build time.
-
-   Satori cannot do oklch, so the card uses the same near-black, off-white and
-   green palette as the site with plain hex fallbacks. */
-
 export const OG_WIDTH = 1200;
 export const OG_HEIGHT = 630;
 
 const PAPER = '#101310';
-const PAPER_EDGE = '#151a15';
 const INK = '#e9eee9';
-const MID = '#a5aea5';
-const GHOST = '#687268';
-const ACC = '#54d66b';
 
-// Satori needs ttf/otf — it does not read woff2, which is what @fontsource
-// ships. Google Fonts hands over truetype when asked without a modern UA.
 async function loadGoogleFont(family: string): Promise<Buffer> {
   const url = `https://fonts.googleapis.com/css2?family=${family}&display=swap`;
   const css = await (await fetch(url)).text();
@@ -27,7 +16,6 @@ async function loadGoogleFont(family: string): Promise<Buffer> {
   return Buffer.from(await (await fetch(match[1])).arrayBuffer());
 }
 
-// One fetch for the whole build, however many cards it renders.
 let fontsPromise: Promise<any[]> | null = null;
 
 function getFonts() {
@@ -43,147 +31,42 @@ function getFonts() {
   return fontsPromise;
 }
 
-/** Long titles have to come down in size or they run off the card. */
-function titleSize(title: string): number {
-  if (title.length > 78) return 40;
-  if (title.length > 58) return 46;
-  if (title.length > 40) return 52;
-  return 58;
-}
-
-const esc = (s: string) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-const gutter = (label: string) => `
-  <span style="
-    display: flex;
-    width: 168px;
-    font-size: 15px;
-    letter-spacing: 3px;
-    color: ${GHOST};
-    padding-top: 14px;
-  ">${esc(label)}</span>`;
-
-const titleBlock = (title: string, sub?: string) => {
-  const size = titleSize(title);
-  return `
-    <div style="display: flex; flex-direction: column; width: 900px;">
-      <span style="
-        display: flex;
-        font-family: mono;
-        font-weight: 500;
-        font-size: ${size}px;
-        line-height: 1.18;
-        letter-spacing: -1.4px;
-        color: ${INK};
-      ">${esc(title)}</span>
-      ${
-        sub
-          ? `<span style="
-               display: flex;
-               margin-top: 22px;
-               font-family: mono;
-               font-size: 26px;
-               line-height: 1.4;
-               color: ${MID};
-             ">${esc(sub)}</span>`
-          : ''
-      }
-    </div>`;
-};
-
-const footer = (right: string) => `
-  <div style="display: flex; align-items: center;">
-    <span style="display: flex; width: 168px;"></span>
-    <span style="display: flex; color: ${ACC}; font-size: 24px;">•</span>
-    <span style="
-      display: flex;
-      margin-left: 14px;
-      font-size: 19px;
-      letter-spacing: 2px;
-      color: ${MID};
-    ">FBERREZ.CO</span>
-    ${
-      right
-        ? `<span style="
-             display: flex;
-             margin-left: 26px;
-             font-size: 19px;
-             letter-spacing: 2px;
-             color: ${GHOST};
-           ">${esc(right)}</span>`
-        : ''
-    }
-  </div>`;
-
-const shell = (inner: string) => `
-  <div style="
-    width: ${OG_WIDTH}px;
-    height: ${OG_HEIGHT}px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 64px 76px;
-    background: linear-gradient(158deg, ${PAPER} 0%, ${PAPER_EDGE} 100%);
-    color: ${INK};
-    font-family: mono;
-  ">${inner}</div>`;
+const esc = (value: string) =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 export interface Card {
-  /** Left-gutter label, e.g. PROFILE. */
-  label: string;
-  title: string;
-  /** One line under the title. This is what makes a shared link readable. */
-  sub?: string;
-  /** Optional bullet items under the title: [name, description] pairs. */
-  rows?: [string, string][];
-  /** Right-hand footer text, e.g. PARIS, FR or a date. */
-  footerRight?: string;
+  wordmark: string;
+  line: string;
 }
 
 function markup(card: Card): string {
-  const rows = (card.rows ?? [])
-    .map(
-      ([left, right]) => `
-        <div style="
-          display: flex;
-          align-items: center;
-          padding: 8px 0;
-        ">
-          <span style="
-            display: flex;
-            margin-right: 14px;
-            font-size: 22px;
-            color: ${ACC};
-          ">•</span>
-          <span style="
-            display: flex;
-            font-family: mono;
-            font-size: 21px;
-            color: ${MID};
-          ">${esc(`${left}: ${right}`)}</span>
-        </div>`,
-    )
-    .join('');
-
-  // Without a list under it, the title takes the free space and centres.
-  const headAlign = rows ? 'align-items: flex-start;' : 'flex: 1; align-items: center;';
-
-  return shell(`
-    <div style="display: flex; ${headAlign}">
-      ${gutter(card.label)}
-      ${titleBlock(card.title, card.sub)}
-    </div>
-    ${
-      rows
-        ? `<div style="display: flex; align-items: flex-start;">
-             ${gutter('')}
-             <div style="display: flex; flex-direction: column; width: 880px;">${rows}</div>
-           </div>`
-        : ''
-    }
-    ${footer(card.footerRight ?? '')}
-  `);
+  return `
+    <div style="
+      width:${OG_WIDTH}px;
+      height:${OG_HEIGHT}px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:72px;
+      background:${PAPER};
+      color:${INK};
+      font-family:mono;
+    ">
+      <span style="
+        display:flex;
+        font-size:42px;
+        font-weight:500;
+        line-height:1;
+        letter-spacing:0;
+      ">${esc(card.wordmark)}</span>
+      <span style="
+        display:flex;
+        margin-top:32px;
+        font-size:28px;
+        font-weight:400;
+        line-height:1.35;
+      ">${esc(card.line)}</span>
+    </div>`;
 }
 
 export async function renderCard(card: Card): Promise<Buffer> {

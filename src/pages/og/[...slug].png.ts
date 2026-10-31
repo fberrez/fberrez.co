@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { PROJECTS } from '../../components/projects.js';
+import { INTRO_LINE, WORDMARK } from '../../components/identity.js';
 import { renderCard, type Card } from '../../lib/og';
 
 /* One card per page. The slug mirrors the page's path, so `/` becomes `index`
@@ -11,12 +11,8 @@ export async function getStaticPaths() {
       params: { slug: 'index' },
       props: {
         card: {
-          label: 'PROFILE',
-          title: 'I make software that stays small on purpose.',
-          rows: PROJECTS.filter((p) => p.state !== 'archived').map(
-            (p) => [p.name, p.desc] as [string, string],
-          ),
-          footerRight: 'PARIS, FR',
+          wordmark: WORDMARK,
+          line: INTRO_LINE,
         },
       },
     },

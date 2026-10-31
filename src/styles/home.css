@@ -3,16 +3,14 @@
   margin-bottom: clamp(58px, 9vw, 104px);
 }
 
-.ascii-mark {
+.wordmark {
   margin: 0 0 28px;
-  overflow: hidden;
   color: var(--ink);
   font: inherit;
-  font-size: clamp(10px, 1.45vw, 17px);
+  font-size: clamp(21px, 2vw, 28px);
   font-weight: 500;
-  line-height: 1.12;
-  letter-spacing: -0.04em;
-  white-space: pre;
+  line-height: 1;
+  letter-spacing: 0;
 }
 
 .intro p {
@@ -86,7 +84,7 @@
     margin-bottom: 56px;
   }
 
-  .ascii-mark {
+  .wordmark {
     margin-bottom: 24px;
   }
 }
