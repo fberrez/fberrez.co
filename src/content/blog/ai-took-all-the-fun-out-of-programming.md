@@ -1,12 +1,12 @@
 ---
 # The file name is the URL: rename this file to my-slug.md → /blog/my-slug
 title: AI took all the fun out of programming, didn't it?
-description: We started the job because we were creative and we wanted to build things. Now it is all over.
+description: We started the job because we were creative and we wanted to build things. Now it's all over.
 date: 2026-11-21
 draft: false
 ---
 
-<img src="/blog/ai-took-off-all-the-fun-from-programming.webp" alt="Top-down view of a sprawling automated factory: conveyor belts, pipes and rows of assembly machines packed edge to edge." width="1500" height="844">
+<img src="/blog/ai-took-all-the-fun-out-of-programming.webp" alt="Top-down view of a sprawling automated factory: conveyor belts, pipes and rows of assembly machines packed edge to edge." width="1500" height="844">
 
 My first job as a software engineer was in 2016. It was an apprenticeship contract. Before that, I coded several little games just for the pleasure of building something with my "hands". Or my brain, I could say. It was quite fun. 
 
