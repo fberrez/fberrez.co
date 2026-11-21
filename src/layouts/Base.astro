@@ -12,7 +12,7 @@ interface Props {
 
 const DEFAULT_TITLE = 'fberrez · software engineer';
 const DEFAULT_DESCRIPTION =
-  'Florent Berrez is a software engineer in Paris building small, native apps and web tools.';
+  'fberrez is a software engineer in Paris building small, native apps and web tools.';
 
 const {
   title = DEFAULT_TITLE,
@@ -25,8 +25,7 @@ const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Florent Berrez',
-  alternateName: ['Flo Berrez', 'fberrez'],
+  name: 'fberrez',
   url: SITE_URL,
   jobTitle: 'Software Engineer',
   description: DEFAULT_DESCRIPTION,
@@ -49,7 +48,7 @@ const websiteJsonLd = {
   name: 'fberrez.co',
   url: SITE_URL,
   inLanguage: 'en',
-  author: { '@type': 'Person', name: 'Florent Berrez', url: SITE_URL },
+  author: { '@type': 'Person', name: 'fberrez', url: SITE_URL },
 };
 
 ---
@@ -68,7 +67,7 @@ const websiteJsonLd = {
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Florent Berrez" />
+    <meta name="author" content="fberrez" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonical} />
     <link

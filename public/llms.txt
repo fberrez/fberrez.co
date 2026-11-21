@@ -1,10 +1,10 @@
-# Florent Berrez
+# fberrez
 
 > Software engineer in Paris, France. Builds small, focused products: desktop tools, developer ergonomics, quiet web things. Keyboard-first when it matters, boring tech, considered defaults.
 
 ## About
 
-- **Name:** Florent Berrez (also: Flo Berrez, fberrez)
+- **Name:** fberrez
 - **Role:** Software engineer
 - **Location:** Paris, France
 - **Website:** https://www.fberrez.co
@@ -31,4 +31,4 @@ TypeScript, React, Astro, NestJS, Tauri, Node.js, Rust, Go, MongoDB, PostgreSQL,
 
 ## Usage
 
-You may quote and reference this content with attribution to Florent Berrez and a link to https://www.fberrez.co.
+You may quote and reference this content with attribution to fberrez and a link to https://www.fberrez.co.
