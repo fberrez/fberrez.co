@@ -1,0 +1,46 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPosts, formatDate } from '../../lib/posts';
+import '../../styles/utility.css';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const iso = post.data.date.toISOString().slice(0, 10);
+// ponytail: posts reuse the profile social card; add per-post cards in og/[...slug].png.ts if sharing needs them
+---
+
+<Base title={`${post.data.title} — Florent Berrez`} description={post.data.description} ogSlug="index" noindex={post.data.draft}>
+  <article>
+    <div class="block" style="padding-bottom:0">
+      <span class="block-label">writing</span>
+      <div>
+        <h1 class="h1">{post.data.title}</h1>
+        <p class="lede">{post.data.description}</p>
+      </div>
+    </div>
+
+    <div class="art">
+      <aside class="spec" aria-label="About this article">
+        <div><span>Published</span><b><time datetime={iso}>{formatDate(post.data.date)}</time></b></div>
+        <div><span>Author</span><b>Florent Berrez</b></div>
+      </aside>
+
+      <div>
+        <div class="prose">
+          <Content />
+        </div>
+
+        <footer class="art-foot">
+          <a href="/blog">← Writing</a>
+          <span>Florent Berrez · Paris</span>
+        </footer>
+      </div>
+    </div>
+  </article>
+</Base>
