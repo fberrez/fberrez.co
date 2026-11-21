@@ -11,7 +11,6 @@ system fonts, an inline favicon, and no JavaScript or third-party requests.
 | --- | --- |
 | `/` | Profile, live products, contact links |
 | `/blog` | Articles from `src/content/blog/*.md` (`draft: true` shows in dev only) |
-| `/min-one/privacy` | Privacy policy for the min.one iOS app |
 
 ## Development
 
