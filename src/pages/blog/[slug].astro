@@ -12,10 +12,9 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const iso = post.data.date.toISOString().slice(0, 10);
-// ponytail: posts reuse the profile social card; add per-post cards in og/[...slug].png.ts if sharing needs them
 ---
 
-<Base title={`${post.data.title} · fberrez`} description={post.data.description} ogSlug="index" noindex={post.data.draft}>
+<Base title={`${post.data.title} · fberrez`} description={post.data.description} noindex={post.data.draft}>
   <article>
     <div class="block" style="padding-bottom:0">
       <span class="block-label">writing</span>
